@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<title>Summer Plan — Track Season Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0a0a;--surface:#111;--surface2:#161616;--surface3:#1a1a1a;
+  --border:#1e1e1e;--border2:#282828;
+  --accent:#00e5ff;--accent-dim:rgba(0,229,255,0.08);--accent-border:rgba(0,229,255,0.2);
+  --gold:#ffd166;--gold-dim:rgba(255,209,102,0.08);
+  --green:#06d6a0;--green-dim:rgba(6,214,160,0.08);
+  --red:#ff4757;--red-dim:rgba(255,71,87,0.08);
+  --text:#f5f5f5;--muted:#555;--muted2:#888;
+  --fd:'Barlow Condensed',sans-serif;--fb:'DM Sans',sans-serif;
+}
+html{background:var(--bg)}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.96);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 4px 9px;background:none;border:none;color:var(--muted);font-family:var(--fb);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:color .2s}
+.nb.active{color:var(--accent)}
+.nb svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.screen{display:none;padding:24px 16px 110px;max-width:600px;margin:0 auto}
+.screen.active{display:block}
+.ey{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;padding-top:12px}
+.pt{font-family:var(--fd);font-size:clamp(36px,8vw,52px);font-weight:800;line-height:.92;margin-bottom:22px}
+.pt .hl{color:var(--accent)}
+.hero{background:linear-gradient(135deg,#0f1a1c,#0a0f10);border:1px solid var(--accent-border);border-radius:12px;padding:20px;margin-bottom:18px;display:flex;align-items:center;gap:16px}
+.rw{position:relative;flex-shrink:0}
+.rw svg{transform:rotate(-90deg)}
+.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rpct{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--accent);line-height:1}
+.rlbl{font-size:9px;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase}
+.ht h2{font-family:var(--fd);font-size:19px;font-weight:700;margin-bottom:3px}
+.ht p{font-size:12px;color:var(--muted2);font-weight:300;line-height:1.5}
+.at{color:var(--accent);font-weight:500}
+.wl{font-family:var(--fd);font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;margin-top:4px}
+.dc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:8px;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;gap:11px}
+.dc:active{background:var(--surface2)}
+.dc.done{border-color:rgba(6,214,160,.25)}
+.dl{font-family:var(--fd);font-size:26px;font-weight:800;line-height:1;color:var(--muted);width:30px;flex-shrink:0}
+.dc.done .dl{color:var(--green)}
+.dc.cdone .dl{color:var(--gold)}
+.di{flex:1;min-width:0}
+.dn{font-size:14px;font-weight:500;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds{font-size:11px;color:var(--muted2);font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dtag{font-size:9.5px;font-weight:600;letter-spacing:.05em;padding:3px 8px;border-radius:3px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.tp{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.tpu{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,209,102,.2)}
+.tl{background:var(--green-dim);color:var(--green);border:1px solid rgba(6,214,160,.2)}
+.tc{background:rgba(255,255,255,.04);color:var(--muted2);border:1px solid var(--border2)}
+.srow{display:flex;gap:5px;margin-top:4px}
+.sd{width:8px;height:8px;border-radius:50%;background:var(--border2)}
+.sd.hit{background:var(--green)}
+.sd.today{background:var(--accent);box-shadow:0 0 5px var(--accent)}
+/* plan */
+.ph{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.pn{font-family:var(--fd);font-size:42px;font-weight:800;line-height:1;color:var(--border2)}
+.pi h3{font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:.04em;margin-bottom:2px}
+.pi p{font-size:12px;color:var(--muted2);font-weight:300}
+.pw{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:5px}
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:7px}
+.pct{font-size:13px;font-weight:500;margin-bottom:3px}
+.pcd{font-size:12px;color:var(--muted2);font-weight:300;line-height:1.55}
+.fp{display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:6px}
+.fa{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.fg{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,209,102,.2)}
+.fgr{background:var(--green-dim);color:var(--green);border:1px solid rgba(6,214,160,.2)}
+/* workout screen */
+.bb{background:none;border:none;color:var(--muted2);font-family:var(--fb);font-size:13px;cursor:pointer;padding:0;margin-bottom:12px;display:flex;align-items:center;gap:5px;padding-top:12px}
+.bb:active{color:var(--text)}
+.wdl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2);margin-bottom:3px}
+.wdt{font-family:var(--fd);font-size:28px;font-weight:800;line-height:1;margin-bottom:4px}
+.wdf{font-size:12px;color:var(--muted2);font-weight:300;margin-bottom:18px}
+/* exercise cards */
+.eb{margin-bottom:8px}
+.ec{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.eh{display:grid;grid-template-columns:36px 1fr auto;align-items:start;gap:10px;padding:12px 14px;cursor:pointer}
+.en{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--muted);line-height:1.25;padding-top:1px}
+.enm{font-size:13.5px;font-weight:500;margin-bottom:2px}
+.esub{font-size:10.5px;color:var(--muted2);font-style:italic;margin-bottom:6px}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.03em;white-space:nowrap}
+.cs{background:#181818;color:#888;border:1px solid #242424}
+.cr{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.ct{background:rgba(255,255,255,.03);color:#777;border:1px solid #222}
+.ecv{font-size:11px;color:var(--muted);padding-top:2px;transition:transform .2s}
+.ec.open .ecv{transform:rotate(180deg)}
+.ebody{display:none;border-top:1px solid var(--border);padding:12px 14px 14px}
+.ec.open .ebody{display:block}
+.ewhat{font-size:12.5px;color:#bbb;font-weight:300;line-height:1.7;margin-bottom:11px;padding:9px 11px;background:#0d0d0d;border-radius:5px;border-left:2px solid var(--accent)}
+.esteps{list-style:none;margin-bottom:10px}
+.esteps li{display:grid;grid-template-columns:18px 1fr;gap:7px;font-size:12.5px;color:#bbb;font-weight:300;line-height:1.6;margin-bottom:5px}
+.sn{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--accent);line-height:1.5}
+.cue{background:rgba(0,229,255,.04);border:1px solid var(--accent-border);border-left:2px solid var(--accent);padding:8px 11px;border-radius:0 5px 5px 0;font-size:12px;color:#aaa;line-height:1.6;margin-bottom:7px}
+.cue strong{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px}
+.mist{background:var(--red-dim);border:1px solid rgba(255,71,87,.15);border-left:2px solid var(--red);padding:8px 11px;border-radius:0 5px 5px 0;font-size:12px;color:#aaa;line-height:1.6}
+.mist strong{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:4px}
+/* set logger */
+.sl{margin-top:12px;border-top:1px solid var(--border);padding-top:11px}
+.sl-title{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:9px;font-weight:600}
+.sl-hdr{display:grid;grid-template-columns:22px 1fr 1fr 1fr 32px;gap:5px;margin-bottom:4px}
+.sl-col{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:center}
+.sl-row{display:grid;grid-template-columns:22px 1fr 1fr 1fr 32px;gap:5px;align-items:center;margin-bottom:6px}
+.sl-lbl{font-family:var(--fd);font-size:13px;color:var(--muted2);text-align:center}
+.si{background:var(--surface3);border:1px solid var(--border2);border-radius:5px;padding:6px 5px;color:var(--text);font-family:var(--fb);font-size:13px;text-align:center;width:100%;-moz-appearance:textfield}
+.si::-webkit-outer-spin-button,.si::-webkit-inner-spin-button{-webkit-appearance:none}
+.si:focus{outline:none;border-color:var(--accent)}
+.si::placeholder{color:var(--muted)}
+.sdb{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--muted2);font-size:12px;width:100%;height:30px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.sdb.chk{background:var(--green-dim);border-color:rgba(6,214,160,.3);color:var(--green)}
+.asr{background:none;border:1px dashed var(--border2);border-radius:5px;color:var(--muted2);font-size:11.5px;padding:6px;cursor:pointer;width:100%;margin-top:3px}
+.asr:active{border-color:var(--accent);color:var(--accent)}
+/* superset */
+.sw{border-left:2px solid var(--gold);padding-left:9px;margin-bottom:9px}
+.slbl{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;padding-left:2px}
+.sw .eb{margin-bottom:5px}
+.sdiv{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.sdiv::after{content:'';flex:1;height:1px;background:var(--border)}
+.cbtn{width:100%;padding:14px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:20px}
+.cbtn:active{opacity:.8}
+.cbtn.done{background:var(--green)}
+/* progress */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.sv{font-family:var(--fd);font-size:32px;font-weight:800;line-height:1;margin-bottom:3px}
+.slb{font-size:10px;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase}
+.le{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between}
+.ln{font-size:13px;font-weight:500;margin-bottom:2px}
+.ld{font-size:11px;color:var(--muted2)}
+.es{text-align:center;padding:40px 16px;color:var(--muted2)}
+.es .big{font-family:var(--fd);font-size:40px;margin-bottom:7px}
+.es p{font-size:12.5px;line-height:1.6}
+.na{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:var(--fb);font-size:13px;font-weight:300;line-height:1.6;resize:none;min-height:85px;margin-top:9px}
+.na:focus{outline:none;border-color:var(--border2)}
+.nlbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-top:18px;display:block}
+.clr{width:100%;padding:11px;background:none;border:1px solid rgba(255,71,87,.3);border-radius:8px;color:var(--red);font-family:var(--fb);font-size:13px;cursor:pointer;margin-top:16px}
+.clr:active{background:var(--red-dim)}
+/* CUSTOMIZE */
+.cst{font-family:var(--fd);font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);margin-bottom:11px}
+.ep{font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:3px;background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border);cursor:pointer;white-space:nowrap;flex-shrink:0;letter-spacing:.04em;text-transform:uppercase}
+.cc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 14px;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.cci{flex:1;min-width:0}
+.ccn{font-size:13.5px;font-weight:500;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ccs{font-size:11px;color:var(--muted2);font-weight:300}
+.cca{display:flex;gap:6px;flex-shrink:0}
+.ib{background:none;border:1px solid var(--border2);border-radius:6px;padding:5px 8px;color:var(--muted2);cursor:pointer;font-size:12px;transition:all .2s}
+.ib:active{color:var(--text)}
+.ib.del:active{color:var(--red);border-color:rgba(255,71,87,.3)}
+.nwb{width:100%;padding:13px;background:none;border:1px dashed rgba(0,229,255,.3);border-radius:8px;color:var(--accent);font-family:var(--fd);font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+.nwb:active{background:var(--accent-dim)}
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.mo.open{display:flex}
+.ms{background:#0f0f0f;border:1px solid var(--border);border-radius:14px 14px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:18px 16px 44px;max-width:600px}
+.mh{width:32px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px}
+.mt{font-family:var(--fd);font-size:22px;font-weight:800;letter-spacing:.03em;margin-bottom:16px}
+.mt .hl{color:var(--accent)}
+.fl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:5px;display:block;margin-top:14px}
+.fi{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:10px 12px;color:var(--text);font-family:var(--fb);font-size:13.5px;font-weight:300}
+.fi:focus{outline:none;border-color:var(--accent)}
+.fi::placeholder{color:var(--muted)}
+.eer{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:11px 12px;margin-bottom:7px;position:relative}
+.een{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:var(--fb);font-size:13px;padding-bottom:6px;margin-bottom:9px}
+.een:focus{outline:none;border-bottom-color:var(--accent)}
+.een::placeholder{color:var(--muted)}
+.erf{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.ef{background:var(--surface3);border:1px solid var(--border);border-radius:5px;padding:7px 8px;color:var(--text);font-family:var(--fb);font-size:12.5px;text-align:center;width:100%;-moz-appearance:textfield}
+.ef::-webkit-outer-spin-button,.ef::-webkit-inner-spin-button{-webkit-appearance:none}
+.ef:focus{outline:none;border-color:var(--accent)}
+.ef::placeholder{color:var(--muted)}
+.ecl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:4px}
+.ecll{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
+.reb{position:absolute;top:9px;right:9px;background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:2px 4px;line-height:1}
+.reb:active{color:var(--red)}
+.aeb{width:100%;padding:10px;background:none;border:1px dashed var(--border2);border-radius:7px;color:var(--muted2);font-size:12.5px;cursor:pointer;margin-top:3px}
+.aeb:active{border-color:var(--accent);color:var(--accent)}
+.svb{width:100%;padding:13px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:18px}
+.svb:active{opacity:.8}
+/* edit existing */
+.eer2{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:11px 12px;margin-bottom:7px}
+.eet{font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px}
+.eef{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.eel{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:3px}
+.eei{background:var(--surface3);border:1px solid var(--border);border-radius:5px;padding:7px 8px;color:var(--text);font-family:var(--fb);font-size:13px;text-align:center;width:100%}
+.eei:focus{outline:none;border-color:var(--accent)}
+/* CALENDAR */
+.cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-month{font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:.04em}
+.cal-nav{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--muted2);font-size:14px;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cal-nav:active{color:var(--text)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dow{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:6px;font-weight:600}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;font-size:11px;color:var(--muted2);position:relative}
+.cal-day.this-month{color:var(--text)}
+.cal-day.today{background:var(--surface2);border:1px solid var(--border2);font-weight:600}
+.cal-day.push-day{background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.18)}
+.cal-day.pull-day{background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.2)}
+.cal-day.legs-day{background:rgba(6,214,160,.07);border:1px solid rgba(6,214,160,.2)}
+.cal-day.done-day{background:rgba(6,214,160,.14);border:1px solid rgba(6,214,160,.35)}
+.cal-day.done-day .cal-dn{color:var(--green);font-weight:600}
+.cal-day.missed-day{opacity:.35}
+.cal-dn{font-size:11px;line-height:1;font-weight:500}
+.cal-dt{font-size:8px;color:var(--muted2);margin-top:2px;text-align:center;line-height:1}
+.cal-day.push-day .cal-dt{color:var(--accent)}
+.cal-day.pull-day .cal-dt{color:var(--gold)}
+.cal-day.legs-day .cal-dt{color:var(--green)}
+.cal-legend{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.cll{display:flex;align-items:center;gap:4px;font-size:9.5px;color:var(--muted2)}
+.cld{width:7px;height:7px;border-radius:50%}
+/* PRESET LIBRARY */
+.preset-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.pcb{font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--muted2);cursor:pointer;transition:all .2s}
+.pcb.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent-border)}
+.preset-list{display:flex;flex-direction:column;gap:5px;max-height:320px;overflow-y:auto}
+.pi2{background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:9px 11px;display:flex;align-items:center;gap:9px;cursor:pointer}
+.pi2:active{border-color:var(--accent)}
+.pi2-info{flex:1}
+.pi2-name{font-size:13px;font-weight:500;margin-bottom:1px}
+.pi2-meta{font-size:10.5px;color:var(--muted2);font-weight:300}
+.pi2-add{font-size:18px;color:var(--accent);flex-shrink:0}
+.open-preset-btn{background:none;border:1px solid rgba(255,209,102,.3);border-radius:7px;color:var(--gold);font-family:var(--fb);font-size:12px;padding:8px 12px;cursor:pointer;margin-bottom:8px;width:100%;letter-spacing:.03em}
+.open-preset-btn:active{background:var(--gold-dim)}
+/* toast */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#000;font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:.06em;padding:10px 20px;border-radius:40px;opacity:0;transition:all .3s;pointer-events:none;z-index:500;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* DIET */
+.diet-hero{background:linear-gradient(135deg,#0f1c0f,#0a100a);border:1px solid rgba(6,214,160,.2);border-radius:12px;padding:18px;margin-bottom:20px}
+.diet-hero-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.macro-box{background:rgba(0,0,0,.3);border-radius:8px;padding:10px 8px;text-align:center}
+.macro-val{font-family:var(--fd);font-size:26px;font-weight:800;line-height:1}
+.macro-lbl{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);margin-top:2px}
+.macro-sub{font-size:9px;color:var(--muted);margin-top:1px}
+.diet-section{margin-bottom:24px}
+.diet-section-title{font-family:var(--fd);font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);margin-bottom:11px}
+.food-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:8px}
+.food-header{display:flex;align-items:center;gap:11px;padding:12px 14px;cursor:pointer}
+.food-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center}
+.food-info{flex:1}
+.food-name{font-size:13.5px;font-weight:500;margin-bottom:2px}
+.food-meta{font-size:11px;color:var(--muted2);font-weight:300}
+.food-badge{font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.fb-p{background:rgba(0,229,255,.07);color:var(--accent);border:1px solid var(--accent-border)}
+.fb-c{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,209,102,.2)}
+.fb-f{background:var(--green-dim);color:var(--green);border:1px solid rgba(6,214,160,.2)}
+.food-body{display:none;border-top:1px solid var(--border);padding:11px 14px 13px}
+.food-card.open .food-body{display:block}
+.food-card.open .food-chevron{transform:rotate(180deg)}
+.food-chevron{font-size:10px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.food-desc{font-size:12.5px;color:#bbb;font-weight:300;line-height:1.65;margin-bottom:9px}
+.food-macros{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.fm-box{background:#0d0d0d;border-radius:5px;padding:7px 5px;text-align:center}
+.fm-val{font-family:var(--fd);font-size:16px;font-weight:700;line-height:1}
+.fm-lbl{font-size:9px;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.timing-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#aaa;font-weight:300;line-height:1.55;padding:7px 10px;background:rgba(0,229,255,.03);border-left:2px solid var(--accent);border-radius:0 4px 4px 0;margin-bottom:6px}
+.timing-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.rule-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 14px;margin-bottom:8px}
+.rule-num{font-family:var(--fd);font-size:28px;font-weight:800;color:var(--border2);float:left;line-height:1;margin-right:10px;margin-top:-2px}
+.rule-title{font-size:13.5px;font-weight:500;margin-bottom:3px}
+.rule-desc{font-size:12px;color:var(--muted2);font-weight:300;line-height:1.55}
+.day-split-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.day-split-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 13px}
+.day-split-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.meal-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;margin-bottom:5px}
+.meal-name{color:var(--text);font-weight:400}
+.meal-cal{color:var(--muted2);font-size:11px}
+.diet-toggle{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:3px;margin-bottom:18px;gap:3px}
+.dt-btn{flex:1;padding:8px 6px;background:none;border:none;border-radius:5px;font-family:var(--fb);font-size:12px;font-weight:500;color:var(--muted2);cursor:pointer;transition:all .2s}
+.dt-btn.active{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+.checklist{list-style:none}
+.checklist li{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:#bbb;font-weight:300;line-height:1.55;padding:7px 0;border-bottom:1px solid var(--border)}
+.checklist li:last-child{border-bottom:none}
+.check-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.water-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:8px}
+.water-bar-inner{height:8px;background:var(--border2);border-radius:4px;margin:10px 0 6px;overflow:hidden}
+.water-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .3s}
+.water-cups{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.cup-btn{width:36px;height:36px;border-radius:6px;background:var(--surface2);border:1px solid var(--border2);color:var(--muted2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cup-btn.filled{background:rgba(0,229,255,.1);border-color:var(--accent-border);color:var(--accent)}
+
+/* PROFILE / ONBOARDING */
+.ob-overlay{position:fixed;inset:0;background:#0a0a0a;z-index:600;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
+.ob-logo{font-family:var(--fd);font-size:56px;font-weight:800;line-height:.9;margin-bottom:12px}
+.ob-logo span{color:var(--accent)}
+.ob-sub{font-size:13px;color:var(--muted2);font-weight:300;line-height:1.6;margin-bottom:36px;max-width:320px}
+.ob-form{width:100%;max-width:360px}
+.ob-field{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:13px 15px;color:var(--text);font-family:var(--fb);font-size:15px;font-weight:300;margin-bottom:11px}
+.ob-field:focus{outline:none;border-color:var(--accent)}
+.ob-field::placeholder{color:var(--muted)}
+.ob-start{width:100%;padding:15px;background:var(--accent);color:#000;border:none;border-radius:10px;font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:4px}
+.ob-start:active{opacity:.85}
+.ob-skip{background:none;border:none;color:var(--muted);font-family:var(--fb);font-size:12px;cursor:pointer;margin-top:14px;display:block;width:100%;text-align:center}
+/* profile screen */
+.prof-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:28px;font-weight:800;color:var(--accent);margin-bottom:12px}
+.prof-name{font-family:var(--fd);font-size:28px;font-weight:800;letter-spacing:.02em;margin-bottom:3px}
+.prof-sub{font-size:12.5px;color:var(--muted2);font-weight:300;margin-bottom:20px}
+.prof-section{margin-bottom:22px}
+.prof-section-title{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-bottom:10px}
+.prof-field-row{margin-bottom:9px}
+.prof-field-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:4px;display:block}
+.prof-input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:11px 13px;color:var(--text);font-family:var(--fb);font-size:14px;font-weight:300}
+.prof-input:focus{outline:none;border-color:var(--accent)}
+.prof-save{width:100%;padding:13px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:4px}
+.prof-save:active{opacity:.8}
+.prof-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:6px}
+.prof-stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 10px;text-align:center}
+.prof-stat-val{font-family:var(--fd);font-size:26px;font-weight:800;line-height:1;margin-bottom:3px}
+.prof-stat-lbl{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted2)}
+.prof-info-card{background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:12.5px;color:var(--muted2);font-weight:300;line-height:1.55}
+.prof-info-card strong{color:var(--text);font-weight:500;display:block;margin-bottom:3px}
+.data-note{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 14px;font-size:12px;color:var(--muted2);font-weight:300;line-height:1.6;margin-top:8px}
+.data-note strong{color:var(--text);font-weight:500}
+/* unlog button on log entries */
+.le{cursor:default}
+.unlog-btn{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:4px 6px;border-radius:4px;transition:color .2s}
+.unlog-btn:active{color:var(--red)}
+
+/* RESCHEDULE */
+.cal-day.moved-day{background:rgba(255,209,102,.1);border:1px dashed rgba(255,209,102,.4)}
+.cal-day.moved-day .cal-dt{color:var(--gold)}
+.cal-day.moved-from{opacity:.22;text-decoration:line-through}
+.rs-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:none;align-items:flex-end;justify-content:center}
+.rs-modal.open{display:flex}
+.rs-sheet{background:#0f0f0f;border:1px solid var(--border);border-radius:14px 14px 0 0;width:100%;max-width:600px;padding:18px 18px 44px}
+.rs-handle{width:32px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px}
+.rs-title{font-family:var(--fd);font-size:20px;font-weight:800;margin-bottom:4px}
+.rs-sub{font-size:12.5px;color:var(--muted2);font-weight:300;margin-bottom:18px;line-height:1.5}
+.rs-date-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.rs-date-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);font-weight:600}
+.rs-date-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:11px 13px;color:var(--text);font-family:var(--fb);font-size:15px}
+.rs-date-input:focus{outline:none;border-color:var(--accent)}
+.rs-confirm{width:100%;padding:13px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-bottom:8px}
+.rs-confirm:active{opacity:.8}
+.rs-cancel{width:100%;padding:10px;background:none;border:1px solid var(--border2);border-radius:8px;color:var(--muted2);font-family:var(--fb);font-size:13px;cursor:pointer}
+.rs-remove{width:100%;padding:10px;background:none;border:1px solid rgba(255,71,87,.25);border-radius:8px;color:var(--red);font-family:var(--fb);font-size:13px;cursor:pointer;margin-top:6px}
+.cal-day.clickable{cursor:pointer}
+.cal-day.clickable:active{filter:brightness(1.3)}
+.cal-hint{font-size:10.5px;color:var(--muted);font-style:italic;text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+<div id="ob-overlay" class="ob-overlay">
+  <div class="ob-logo">SUMMER<br><span>PLAN</span></div>
+  <div class="ob-sub">Your 12-week track season prep. Workouts, diet, and schedule — all in one place. Let's set up your profile.</div>
+  <div class="ob-form">
+    <input class="ob-field" id="ob-name" placeholder="Your name" maxlength="30" autocomplete="name">
+    <input class="ob-field" id="ob-weight" placeholder="Bodyweight (lbs)" type="number" min="50" max="400">
+    <input class="ob-field" id="ob-goal" placeholder="Your #1 goal this summer" maxlength="60">
+    <button class="ob-start" onclick="finishOnboard()">LET'S GO →</button>
+    <button class="ob-skip" onclick="skipOnboard()">Skip for now</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- EDITOR MODAL -->
+<div class="mo" id="emod" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="ms">
+<div class="mh"></div>
+<div class="mt" id="emod-title">NEW <span class="hl">WORKOUT</span></div>
+<label class="fl">Workout Name</label>
+<input class="fi" id="en" placeholder="e.g. Arms Day, Full Body, Core…" maxlength="40">
+<label class="fl">Focus / Notes (optional)</label>
+<input class="fi" id="ef2" placeholder="e.g. Biceps · Triceps · Forearms" maxlength="60">
+<div style="margin-top:18px">
+<div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;font-weight:600">Exercises</div>
+<div class="ecl"><div class="ecll">Sets</div><div class="ecll">Reps</div><div class="ecll">Weight (lbs)</div></div>
+<div id="eel2"></div>
+<button class="open-preset-btn" onclick="openPresetLib()">📚 Browse Exercise Library</button>
+<button class="aeb" onclick="addEx()">+ Add Exercise Manually</button>
+</div>
+<button class="svb" onclick="saveCustom()">SAVE WORKOUT</button>
+</div>
+</div>
+
+<!-- EDIT EXISTING MODAL -->
+<div class="mo" id="eemod" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="ms">
+<div class="mh"></div>
+<div class="mt" id="eemod-title">EDIT <span class="hl">WORKOUT</span></div>
+<div style="font-size:12px;color:var(--muted2);font-weight:300;line-height:1.6;margin-bottom:16px">Change the sets, reps, or target weight for any exercise. These show up in the workout.</div>
+<div id="ee-list"></div>
+<button class="svb" onclick="saveEE()">SAVE CHANGES</button>
+</div>
+</div>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+<div class="ey">Summer 2026 · Track Prep</div>
+<div class="pt">YOUR<br><span class="hl">PLAN</span></div>
+<div class="hero">
+<div class="rw">
+<svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="30" stroke="#1e1e1e" stroke-width="6" fill="none"/><circle cx="36" cy="36" r="30" stroke="#00e5ff" stroke-width="6" fill="none" stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round" id="rc"/></svg>
+<div class="rc"><div class="rpct" id="rpct">0%</div><div class="rlbl">done</div></div>
+</div>
+<div class="ht"><h2 id="ht-title">Week 1</h2><p id="ht-sub">Start your first session. <span class="at">3 sessions this week.</span></p></div>
+</div>
+<div class="wl">Program Days</div>
+<div class="dc" onclick="openW('push')" id="day-push"><div class="dl" id="dl-push">A</div><div class="di"><div class="dn">Day A — Push</div><div class="ds">Chest · Shoulders · Triceps · Power</div></div><div class="dtag tp">Push</div></div>
+<div class="dc" onclick="openW('pull')" id="day-pull"><div class="dl" id="dl-pull">B</div><div class="di"><div class="dn">Day B — Pull</div><div class="ds">Back · Biceps · Rear delts · Grip</div></div><div class="dtag tpu">Pull</div></div>
+<div class="dc" onclick="openW('legs')" id="day-legs"><div class="dl" id="dl-legs">C</div><div class="di"><div class="dn">Day C — Legs + Power</div><div class="ds">Glutes · Hamstrings · Quads · Jumps</div></div><div class="dtag tl">Legs</div></div>
+<div id="home-customs"></div>
+<div style="margin-top:16px"><div class="wl">Last 7 Days</div><div class="srow" id="srow"></div></div>
+<div id="cal-section" style="display:none;margin-top:20px">
+<div class="wl">Schedule Calendar</div>
+<div class="cal-wrap">
+  <div class="cal-header">
+    <button class="cal-nav" onclick="calPrev()">‹</button>
+    <div class="cal-month" id="cal-month-label"></div>
+    <button class="cal-nav" onclick="calNext()">›</button>
+  </div>
+  <div class="cal-grid" id="cal-grid">
+    <div class="cal-dow">Su</div><div class="cal-dow">Mo</div><div class="cal-dow">Tu</div><div class="cal-dow">We</div><div class="cal-dow">Th</div><div class="cal-dow">Fr</div><div class="cal-dow">Sa</div>
+  </div>
+  <div class="cal-legend">
+    <div class="cll"><div class="cld" style="background:var(--accent)"></div>Push</div>
+    <div class="cll"><div class="cld" style="background:var(--gold)"></div>Pull</div>
+    <div class="cll"><div class="cld" style="background:var(--green)"></div>Legs</div>
+    <div class="cll"><div class="cld" style="background:rgba(6,214,160,.4)"></div>Done</div>
+    <div class="cll"><div class="cld" style="background:rgba(255,209,102,.4)"></div>Moved</div>
+  </div>
+  <div class="cal-hint">Tap any scheduled or missed day to reschedule it</div>
+</div>
+</div>
+</div>
+
+<!-- PLAN -->
+<div class="screen" id="screen-plan">
+<div class="ey">12-Week Program</div>
+<div class="pt">THE<br><span class="hl">PLAN</span></div>
+<div style="font-size:12.5px;color:var(--muted2);font-weight:300;line-height:1.7;margin-bottom:24px">3 days per week. Each phase builds on the last. Designed to peak you for track season — bigger, stronger, more explosive. Upper body gets extra volume in Phase 1 to build your visual base.</div>
+<div style="margin-bottom:26px">
+<div class="ph"><div class="pn">01</div><div class="pi"><div class="pw">Weeks 1–4</div><h3>FOUNDATION</h3><p>Build the base. Learn the movements.</p></div></div>
+<div class="pc"><div class="fp fa">Upper Body Focus</div><div class="pct">Goal: movement patterns + volume tolerance</div><div class="pcd">Sets in the 8–12 rep range, moderate weight, controlled tempo. Show up consistently and push your last 2 reps every set. Don't skip leg day — it feeds your jumps directly.</div></div>
+<div class="pc"><div class="fp fg">Progressive Overload</div><div class="pct">Add weight when you hit the top rep range</div><div class="pcd">When you hit the top of the range cleanly across all sets, add 5 lbs next session. This is the most important principle for building muscle over time.</div></div>
+</div>
+<div style="margin-bottom:26px">
+<div class="ph"><div class="pn">02</div><div class="pi"><div class="pw">Weeks 5–8</div><h3>INTENSIFICATION</h3><p>Heavier. Harder. More explosive.</p></div></div>
+<div class="pc"><div class="fp fg">Strength + Power</div><div class="pct">Drop reps, add load. Introduce explosive work.</div><div class="pcd">Shift compound lifts to 5–8 reps. Introduce box jumps and med ball work on leg day for fast-twitch recruitment — this transfers directly to your jump events.</div></div>
+<div class="pc"><div class="fp fa">Visual Progress</div><div class="pct">This is where you start to see the change</div><div class="pcd">By week 6–7, with consistent nutrition and training, you'll notice real changes in shoulder width, arm thickness, and chest definition.</div></div>
+</div>
+<div style="margin-bottom:26px">
+<div class="ph"><div class="pn">03</div><div class="pi"><div class="pw">Weeks 9–12</div><h3>PEAK + POWER</h3><p>Peak strength. Max power. Track-ready.</p></div></div>
+<div class="pc"><div class="fp fgr">Track Prep</div><div class="pct">Heavy compound lifts + explosive plyometrics</div><div class="pcd">Heavier compound sets (3–6 reps). Plyometric volume increases. You arrive at preseason bigger, stronger, and more powerful.</div></div>
+<div class="pc"><div class="fp fg">Deload — Week 12</div><div class="pct">Final week: drop volume 40%, keep intensity</div><div class="pcd">Reduce sets by roughly half but keep the weight. Your body supercompensates and you come back stronger than if you'd trained right up to day one.</div></div>
+</div>
+</div>
+
+<!-- WORKOUT -->
+<div class="screen" id="screen-workout">
+<button class="bb" onclick="goBack()">← Back</button>
+<div class="wdl" id="wd-label"></div>
+<div class="wdt" id="wd-title"></div>
+<div class="wdf" id="wd-focus"></div>
+<div id="wc"></div>
+</div>
+
+<!-- CUSTOMIZE -->
+<div class="screen" id="screen-customize">
+<div class="ey">Workouts</div>
+<div class="pt">CUST<br><span class="hl">OMIZE</span></div>
+<div style="margin-bottom:24px">
+<div class="cst">Edit Program Days</div>
+<div style="font-size:12px;color:var(--muted2);font-weight:300;line-height:1.6;margin-bottom:13px">Adjust the sets, reps, and target weight for any exercise in your Push, Pull, or Legs days.</div>
+<div class="dc" style="cursor:default"><div class="dl" style="color:var(--accent)">A</div><div class="di"><div class="dn">Push — Chest · Shoulders · Tris</div><div class="ds">Edit sets, reps, weight per exercise</div></div><div class="ep" onclick="openEE('push')">Edit</div></div>
+<div class="dc" style="cursor:default"><div class="dl" style="color:var(--gold)">B</div><div class="di"><div class="dn">Pull — Back · Biceps · Rear Delts</div><div class="ds">Edit sets, reps, weight per exercise</div></div><div class="ep" onclick="openEE('pull')">Edit</div></div>
+<div class="dc" style="cursor:default"><div class="dl" style="color:var(--green)">C</div><div class="di"><div class="dn">Legs + Power</div><div class="ds">Edit sets, reps, weight per exercise</div></div><div class="ep" onclick="openEE('legs')">Edit</div></div>
+</div>
+<div>
+<div class="cst">My Custom Workouts</div>
+<div id="custom-list"></div>
+<button class="nwb" onclick="openNewEditor()"><span style="font-size:17px;line-height:1">+</span> Create New Workout</button>
+</div>
+</div>
+
+<!-- PROGRESS -->
+<div class="screen" id="screen-progress">
+<div class="ey">Your Stats</div>
+<div class="pt">PROG<br><span class="hl">RESS</span></div>
+<div class="sg">
+<div class="sc"><div class="sv" id="st-total" style="color:var(--accent)">0</div><div class="slb">Sessions Done</div></div>
+<div class="sc"><div class="sv" id="st-streak" style="color:var(--gold)">0</div><div class="slb">Week Streak</div></div>
+<div class="sc"><div class="sv" id="st-push" style="color:var(--accent)">0</div><div class="slb">Push Sessions</div></div>
+<div class="sc"><div class="sv" id="st-legs" style="color:var(--green)">0</div><div class="slb">Leg Sessions</div></div>
+</div>
+<div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px">Session Log</div>
+<div id="log-list"></div>
+<label class="nlbl">Notes / PRs / What to improve</label>
+<textarea class="na" id="notes" placeholder="Write anything — PRs, how you felt, what to improve…" oninput="saveNotes()"></textarea>
+<button class="clr" onclick="clearLog()">Clear All Data</button>
+</div>
+
+<!-- DIET SCREEN -->
+<div class="screen" id="screen-diet">
+<div class="ey">Fuel the gains</div>
+<div class="pt">DIET<br><span class="hl">PLAN</span></div>
+
+<!-- toggle -->
+<div class="diet-toggle">
+  <button class="dt-btn active" onclick="dietTab('targets',this)">Targets</button>
+  <button class="dt-btn" onclick="dietTab('foods',this)">Foods</button>
+  <button class="dt-btn" onclick="dietTab('timing',this)">Timing</button>
+  <button class="dt-btn" onclick="dietTab('rules',this)">Rules</button>
+  <button class="dt-btn" onclick="dietTab('water',this)">Water</button>
+</div>
+
+<!-- TARGETS -->
+<div id="diet-targets">
+<div class="diet-hero">
+  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:4px">Recomp Goal · 140–160 lbs</div>
+  <div style="font-size:13px;color:var(--muted2);font-weight:300;line-height:1.55">Build muscle and lose fat simultaneously. This works best for intermediate lifters at your age — you eat at roughly maintenance calories with high protein, and your body uses fat stores to fuel the muscle-building process.</div>
+  <div class="diet-hero-row">
+    <div class="macro-box"><div class="macro-val" style="color:var(--accent)">2,600</div><div class="macro-lbl">Calories</div><div class="macro-sub">per day</div></div>
+    <div class="macro-box"><div class="macro-val" style="color:var(--gold)">160g</div><div class="macro-lbl">Protein</div><div class="macro-sub">~1g per lb</div></div>
+    <div class="macro-box"><div class="macro-val" style="color:var(--green)">300g</div><div class="macro-lbl">Carbs</div><div class="macro-sub">fuel + recovery</div></div>
+  </div>
+  <div style="margin-top:10px;font-size:11px;color:var(--muted);font-style:italic;line-height:1.5">Fat fills the remaining ~75–85g. These are estimates based on your weight and goal — I'm not a dietitian, so treat these as a starting framework, not a prescription. Adjust based on how your body responds over 3–4 weeks.</div>
+</div>
+
+<div class="diet-section">
+<div class="diet-section-title">Why These Numbers</div>
+<div class="rule-card"><div class="rule-num">P</div><div class="rule-title">Protein — 160g/day</div><div class="rule-desc">Protein is the literal building block of muscle. At 1g per pound of bodyweight you give your body the raw material it needs to repair and grow after every session. This is the single most important number to hit. If you hit nothing else, hit this.</div></div>
+<div class="rule-card"><div class="rule-num">C</div><div class="rule-title">Carbs — 300g/day</div><div class="rule-desc">Carbs are your primary fuel source for training and recovery. On training days carbs replenish glycogen (your muscles' energy stores) and support performance. Don't be afraid of carbs — for an athlete doing jump training, they're not optional.</div></div>
+<div class="rule-card"><div class="rule-num">F</div><div class="rule-title">Fat — 75–85g/day</div><div class="rule-desc">Fat supports hormone production including testosterone, which drives muscle growth. Don't cut fat too low. Focus on getting it from whole food sources — eggs, olive oil, nuts, avocado — rather than tracking it obsessively.</div></div>
+</div>
+
+<div class="diet-section">
+<div class="diet-section-title">Training vs Rest Day Eating</div>
+<div class="day-split-row">
+  <div class="day-split-card">
+    <div class="day-split-label" style="color:var(--accent)">🏋️ Training Day</div>
+    <div class="meal-row"><span class="meal-name">Breakfast</span><span class="meal-cal">~600 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Pre-workout</span><span class="meal-cal">~300 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Post-workout</span><span class="meal-cal">~500 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Lunch</span><span class="meal-cal">~600 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Dinner</span><span class="meal-cal">~600 cal</span></div>
+    <div style="border-top:1px solid var(--border);margin-top:5px;padding-top:5px;font-size:11px;color:var(--accent);font-weight:500">~2,600 cal total</div>
+  </div>
+  <div class="day-split-card">
+    <div class="day-split-label" style="color:var(--muted2)">😴 Rest Day</div>
+    <div class="meal-row"><span class="meal-name">Breakfast</span><span class="meal-cal">~500 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Lunch</span><span class="meal-cal">~600 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Snack</span><span class="meal-cal">~300 cal</span></div>
+    <div class="meal-row"><span class="meal-name">Dinner</span><span class="meal-cal">~550 cal</span></div>
+    <div style="border-top:1px solid var(--border);margin-top:5px;padding-top:5px;font-size:11px;color:var(--muted2);font-weight:500">~1,950–2,200 cal</div>
+  </div>
+</div>
+<div style="font-size:11.5px;color:var(--muted2);font-weight:300;line-height:1.55;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px">On rest days, slightly fewer carbs is fine since you're not fueling a workout. Keep protein the same — your muscles are still recovering and growing on rest days.</div>
+</div>
+</div>
+
+<!-- FOODS -->
+<div id="diet-foods" style="display:none">
+<div class="diet-section">
+<div class="diet-section-title">High-Protein Foods — Prioritize These</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🥚</div><div class="food-info"><div class="food-name">Eggs</div><div class="food-meta">Whole eggs + whites · Breakfast staple</div></div><span class="food-badge fb-p">Protein</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">One of the most complete protein sources available. Whole eggs contain all essential amino acids plus healthy fat and cholesterol that supports testosterone production. Don't just eat whites — the yolk is where half the nutrition lives.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">78</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">6g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">0g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">5g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>3–4 eggs at breakfast = ~25g protein to start the day. Scramble them with oats or toast for carbs too.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🍗</div><div class="food-info"><div class="food-name">Chicken Breast</div><div class="food-meta">Lean protein · Extremely versatile</div></div><span class="food-badge fb-p">Protein</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">The most straightforward lean protein source. 4–6 oz gives you 35–50g of protein with minimal fat and almost zero carbs. Cook a batch at the start of the week and you'll always have protein ready to go.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">165</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">31g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">0g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">3.6g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per 3.5oz (100g). Aim for 5–6oz per meal when chicken is your protein source — that's ~45–50g protein per serving.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🐟</div><div class="food-info"><div class="food-name">Canned Tuna / Salmon</div><div class="food-meta">Fast protein · Omega-3s for recovery</div></div><span class="food-badge fb-p">Protein</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">One of the most convenient high-protein foods — no cooking required. A can of tuna is ~25g of protein for under $2. Salmon adds omega-3 fatty acids which reduce inflammation and support recovery — especially useful during heavy training blocks.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">109</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">25g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">0g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">1g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per can of tuna (5oz). Mix with rice or crackers for a fast post-workout meal. Keep cans in the house — they're your backup plan when there's nothing else.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🫙</div><div class="food-info"><div class="food-name">Greek Yogurt</div><div class="food-meta">High protein dairy · Gut health</div></div><span class="food-badge fb-p">Protein</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">Plain Greek yogurt (not flavored) has roughly 17–20g of protein per cup. It's one of the few foods that's high in both protein and carbs — making it a great post-workout snack. Look for brands with minimal added sugar. Chobani, Fage, or store brand plain are good choices.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">130</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">17g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">9g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">4g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per cup (plain, 2%). Add berries and a handful of granola for a balanced snack with ~30g protein and good carbs.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🥩</div><div class="food-info"><div class="food-name">Ground Beef (90/10) or Lean Steak</div><div class="food-meta">Red meat · Creatine + iron + zinc</div></div><span class="food-badge fb-p">Protein</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">Red meat is one of the few natural food sources of creatine — a compound that directly improves strength and power output. It also provides iron and zinc, which support energy levels and testosterone. Don't avoid red meat — 3–4 servings a week is beneficial for athletes.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">215</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">27g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">0g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">11g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per 4oz (90/10 ground beef). Great for dinner with rice and vegetables — hits protein, carbs, and fat all in one meal.</div>
+  </div>
+</div>
+</div>
+
+<div class="diet-section">
+<div class="diet-section-title">Carb Sources — Fuel and Recovery</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🍚</div><div class="food-info"><div class="food-name">White or Brown Rice</div><div class="food-meta">Primary carb source · Easy to prep</div></div><span class="food-badge fb-c">Carbs</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">Rice is the simplest, most reliable carb source for athletes. White rice digests faster and is better pre or post-workout. Brown rice digests slower and is better at other meals. Cook a large batch at the start of the week and eat it with everything.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">206</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">4g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">45g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">0.4g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per cup cooked. Aim for 1–1.5 cups alongside protein at lunch and dinner. Post-workout is the best time for white rice.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🥣</div><div class="food-info"><div class="food-name">Oats</div><div class="food-meta">Slow-release energy · Ideal breakfast</div></div><span class="food-badge fb-c">Carbs</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">Oats are one of the best breakfast foods for athletes — they digest slowly which keeps your energy stable for hours, and they pair perfectly with eggs or protein powder to create a high-protein, high-carb breakfast. Use rolled oats or steel-cut, not instant packets (which are loaded with sugar).</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">300</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">10g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">54g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">6g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per 1 cup dry. Add a scoop of protein powder or eat alongside 3 eggs for a ~45g protein breakfast.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🍌</div><div class="food-info"><div class="food-name">Bananas</div><div class="food-meta">Fast carbs · Pre-workout fuel</div></div><span class="food-badge fb-c">Carbs</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">Bananas are the ideal pre-workout carb — fast-digesting, portable, easy on the stomach, and they contain potassium which prevents muscle cramps. Eat one 30–60 minutes before training. Don't overthink it — it's one of the simplest performance foods available.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">105</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">1.3g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">27g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">0.4g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">⚡</div>Pre-workout: 1 banana + a small protein source (like a handful of peanuts or some Greek yogurt) = ready to train.</div>
+  </div>
+</div>
+
+<div class="food-card" onclick="this.classList.toggle('open')">
+  <div class="food-header"><div class="food-icon">🍠</div><div class="food-info"><div class="food-name">Sweet Potato</div><div class="food-meta">Slow carbs · Vitamins + fiber</div></div><span class="food-badge fb-c">Carbs</span><div class="food-chevron">▼</div></div>
+  <div class="food-body">
+    <div class="food-desc">Sweet potato is one of the most nutritious carb sources — packed with Vitamin A, fiber, and potassium. It digests slowly which makes it great for dinner when you don't need fast energy but want sustained recovery overnight. Microwave one for 5 minutes — it's basically effortless.</div>
+    <div class="food-macros"><div class="fm-box"><div class="fm-val" style="color:var(--gold)">103</div><div class="fm-lbl">Cal</div></div><div class="fm-box"><div class="fm-val" style="color:var(--accent)">2.3g</div><div class="fm-lbl">Protein</div></div><div class="fm-box"><div class="fm-val" style="color:var(--gold)">24g</div><div class="fm-lbl">Carbs</div></div><div class="fm-box"><div class="fm-val" style="color:var(--green)">0.1g</div><div class="fm-lbl">Fat</div></div></div>
+    <div class="timing-row"><div class="timing-icon">💡</div>Per medium sweet potato. Pair with chicken and a vegetable for a complete, easy dinner that hits protein, carbs, and micronutrients.</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- TIMING -->
+<div id="diet-timing" style="display:none">
+<div class="diet-section">
+<div class="diet-section-title">When to Eat — Training Days</div>
+<div style="font-size:12.5px;color:var(--muted2);font-weight:300;line-height:1.6;margin-bottom:16px">Nutrient timing matters more on training days. On rest days, just focus on hitting your protein target and eating balanced meals — the timing is less important.</div>
+
+<div class="rule-card" style="border-left:2px solid var(--green)">
+  <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:5px">Wake up → Breakfast</div>
+  <div class="rule-title">High protein, moderate carbs, some fat</div>
+  <div class="rule-desc">Eat within 1–2 hours of waking. Your body has been fasting all night and protein synthesis is waiting. 3–4 eggs + oats or toast is the simplest option. Target ~40–50g protein at this meal.</div>
+</div>
+<div class="rule-card" style="border-left:2px solid var(--gold)">
+  <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px">60–90 min before workout</div>
+  <div class="rule-title">Pre-workout — carbs + light protein</div>
+  <div class="rule-desc">A banana, rice cake with peanut butter, or a small bowl of oats. You want easily digestible carbs to fuel the session. Don't eat a huge meal — training on a full stomach is uncomfortable and slows you down. Light and carb-forward is the goal here.</div>
+</div>
+<div class="rule-card" style="border-left:2px solid var(--accent)">
+  <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:5px">Within 1–2 hours post-workout</div>
+  <div class="rule-title">Post-workout — protein + fast carbs</div>
+  <div class="rule-desc">This is the most important meal of the day on training days. Your muscles are primed to absorb protein and carbs. Aim for 40–50g protein + fast carbs (white rice, fruit, bread). Chicken and white rice is the classic. Don't skip this meal — it's when most of the recovery happens.</div>
+</div>
+<div class="rule-card" style="border-left:2px solid var(--muted)">
+  <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:5px">Before bed</div>
+  <div class="rule-title">Slow protein — optional but useful</div>
+  <div class="rule-desc">Cottage cheese or Greek yogurt before bed provides casein protein — a slow-digesting protein that releases amino acids gradually overnight while you sleep (which is when most muscle growth actually happens). Not mandatory, but a good habit to build.</div>
+</div>
+</div>
+
+<div class="diet-section">
+<div class="diet-section-title">Sample Training Day</div>
+<ul class="checklist">
+  <li><div class="check-icon">🌅</div><div><strong>7–8am Breakfast:</strong> 3 eggs scrambled + 1 cup oats + handful of berries. ~550 cal, ~38g protein, ~60g carbs.</div></li>
+  <li><div class="check-icon">🍌</div><div><strong>Pre-workout (1hr before):</strong> 1 banana + 1 tbsp peanut butter. ~200 cal, ~5g protein, ~30g carbs.</div></li>
+  <li><div class="check-icon">🏋️</div><div><strong>Train.</strong> Sip water throughout — at least 16–20oz during the session.</div></li>
+  <li><div class="check-icon">🍗</div><div><strong>Post-workout:</strong> 5–6oz chicken breast + 1.5 cups white rice + any vegetable. ~600 cal, ~50g protein, ~65g carbs.</div></li>
+  <li><div class="check-icon">🥗</div><div><strong>Lunch:</strong> Ground beef bowl or tuna with rice + veggies. ~550 cal, ~40g protein.</div></li>
+  <li><div class="check-icon">🍽️</div><div><strong>Dinner:</strong> Lean protein + sweet potato + vegetables. ~500 cal, ~40g protein.</div></li>
+  <li><div class="check-icon">🌙</div><div><strong>Before bed (optional):</strong> 1 cup Greek yogurt or cottage cheese. ~130 cal, ~17–20g protein.</div></li>
+</ul>
+</div>
+</div>
+
+<!-- RULES -->
+<div id="diet-rules" style="display:none">
+<div class="diet-section">
+<div class="diet-section-title">The Non-Negotiable Rules</div>
+
+<div class="rule-card">
+  <div class="rule-num">1</div>
+  <div class="rule-title">Protein first, everything else second</div>
+  <div class="rule-desc">If you hit nothing else, hit 160g of protein per day. Calories can fluctuate, carbs can flex, but protein is non-negotiable. Plan every meal around a protein source first, then add carbs and fat around it.</div>
+</div>
+<div class="rule-card">
+  <div class="rule-num">2</div>
+  <div class="rule-title">Don't skip breakfast</div>
+  <div class="rule-desc">You've been fasting all night. Skipping breakfast means your body goes even longer without protein and fuel — this slows muscle protein synthesis in the morning. Even a quick 3-egg scramble and a banana takes 10 minutes to make.</div>
+</div>
+<div class="rule-card">
+  <div class="rule-num">3</div>
+  <div class="rule-title">Drink water — consistently, not all at once</div>
+  <div class="rule-desc">Aim for half your bodyweight in ounces per day (so ~75–85oz at your weight). Dehydration of even 2% significantly reduces strength and power output. Drink steadily throughout the day, not just during training.</div>
+</div>
+<div class="rule-card">
+  <div class="rule-num">4</div>
+  <div class="rule-title">Eat whole foods most of the time</div>
+  <div class="rule-desc">You don't need to be perfect. But if 80–90% of your diet comes from real food sources (meat, eggs, rice, oats, fruit, vegetables) your body will function and recover better than if it's running on fast food and processed snacks. The 10–20% flex is for living your life.</div>
+</div>
+<div class="rule-card">
+  <div class="rule-num">5</div>
+  <div class="rule-title">Don't fear carbs before training</div>
+  <div class="rule-desc">Some people avoid carbs thinking it will help them lean out — for an athlete doing strength training and plyometrics, this is a mistake. Carbs are your training fuel. Cutting them before a session means weaker training, less muscle stimulus, and slower progress.</div>
+</div>
+<div class="rule-card">
+  <div class="rule-num">6</div>
+  <div class="rule-title">Sleep is part of the diet</div>
+  <div class="rule-desc">You grow muscle during sleep, not during training — the workout is just the signal. 8 hours of sleep is when growth hormone is released and muscle repair actually happens. No diet plan compensates for 5–6 hours of sleep consistently. This one is non-negotiable for recomp.</div>
+</div>
+<div class="rule-card">
+  <div class="rule-num">7</div>
+  <div class="rule-title">Be patient with the scale</div>
+  <div class="rule-desc">Recomp is slower than a straight bulk or cut because you're doing two things at once. The scale may not move much for weeks. That's normal — you're losing fat and gaining muscle simultaneously. Judge progress by how you look, how you perform, and how your clothes fit, not just the number.</div>
+</div>
+</div>
+
+<div class="diet-section">
+<div class="diet-section-title">What to Limit (Not Eliminate)</div>
+<ul class="checklist">
+  <li><div class="check-icon">🍟</div><div><strong>Fast food:</strong> Fine occasionally. The problem is usually very low protein, very high fat, and massive calorie loads. If you eat it, add a protein source to compensate.</div></li>
+  <li><div class="check-icon">🥤</div><div><strong>Sugary drinks:</strong> Soda, sweet tea, juice — these add hundreds of calories with no protein or nutritional benefit. Replace with water, sparkling water, or unsweetened drinks most of the time.</div></li>
+  <li><div class="check-icon">🍕</div><div><strong>High-fat processed food:</strong> Chips, cookies, fried food. Not banned — just don't let these crowd out your protein and whole food targets.</div></li>
+  <li><div class="check-icon">⏰</div><div><strong>Skipping meals:</strong> Especially post-workout. Missing that recovery window slows results noticeably over a 12-week period.</div></li>
+</ul>
+</div>
+</div>
+
+<!-- WATER -->
+<div id="diet-water" style="display:none">
+<div class="diet-hero" style="background:linear-gradient(135deg,#0a0f1c,#080c14);border-color:rgba(0,229,255,.2)">
+  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:4px">Daily Water Target</div>
+  <div style="font-family:var(--fd);font-size:52px;font-weight:800;color:var(--accent);line-height:1">80 oz</div>
+  <div style="font-size:12px;color:var(--muted2);font-weight:300;margin-top:4px">~10 cups · Based on your bodyweight (150 lbs × 0.5 = 75–85oz)</div>
+</div>
+
+<div class="water-bar">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+    <div style="font-size:12px;font-weight:500">Today's Water</div>
+    <div style="font-size:12px;color:var(--accent);font-weight:600" id="water-count">0 / 10 cups</div>
+  </div>
+  <div class="water-bar-inner"><div class="water-fill" id="water-fill" style="width:0%"></div></div>
+  <div style="font-size:11px;color:var(--muted2);margin-bottom:10px">Tap a cup to log it. Resets daily.</div>
+  <div class="water-cups" id="water-cups"></div>
+</div>
+
+<div class="diet-section" style="margin-top:20px">
+<div class="diet-section-title">Why This Matters For You</div>
+<ul class="checklist">
+  <li><div class="check-icon">💪</div><div><strong>Strength:</strong> Even 2% dehydration measurably reduces strength output. At 150 lbs, that's just 3 lbs of water weight lost through sweat.</div></li>
+  <li><div class="check-icon">⚡</div><div><strong>Jump power:</strong> Explosive movements are among the first to suffer when dehydrated. Your nervous system needs to be well-hydrated to fire fast.</div></li>
+  <li><div class="check-icon">🔄</div><div><strong>Recovery:</strong> Muscle protein synthesis and glycogen replenishment both require adequate hydration. Being chronically dehydrated slows recovery between sessions.</div></li>
+  <li><div class="check-icon">🌡️</div><div><strong>Summer heat:</strong> Training in summer means more sweat. Add an extra 8–16oz on hot days or any day you sweat heavily outside of training.</div></li>
+</ul>
+</div>
+
+<div class="diet-section">
+<div class="diet-section-title">Simple Habits</div>
+<ul class="checklist">
+  <li><div class="check-icon">🌅</div><div>16oz (2 cups) first thing in the morning before anything else. Your body is dehydrated from sleep.</div></li>
+  <li><div class="check-icon">🏋️</div><div>16–24oz during your workout session, sipped throughout.</div></li>
+  <li><div class="check-icon">🍽️</div><div>A full glass of water with every meal — breakfast, lunch, and dinner.</div></li>
+  <li><div class="check-icon">🌙</div><div>8oz before bed. Don't go to sleep dehydrated.</div></li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<!-- PRESET LIBRARY MODAL -->
+<div class="mo" id="preset-modal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="ms">
+<div class="mh"></div>
+<div class="mt">EXERCISE <span class="hl">LIBRARY</span></div>
+<div style="font-size:12px;color:var(--muted2);font-weight:300;line-height:1.6;margin-bottom:14px">Tap any exercise to add it to your workout. Filter by category.</div>
+<div class="preset-cats" id="preset-cats"></div>
+<div class="preset-list" id="preset-list"></div>
+</div>
+</div>
+
+<!-- PROFILE SCREEN -->
+<div class="screen" id="screen-profile">
+<div class="ey">Your Account</div>
+<div class="pt">PRO<br><span class="hl">FILE</span></div>
+
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+  <div class="prof-avatar" id="prof-avatar">?</div>
+  <div>
+    <div class="prof-name" id="prof-name-display">Athlete</div>
+    <div class="prof-sub" id="prof-goal-display">Summer 2026</div>
+  </div>
+</div>
+
+<div class="prof-stat-grid" id="prof-stats"></div>
+
+<div class="prof-section" style="margin-top:16px">
+  <div class="prof-section-title">Edit Profile</div>
+  <div class="prof-field-row">
+    <span class="prof-field-label">Name</span>
+    <input class="prof-input" id="prof-name" placeholder="Your name" maxlength="30">
+  </div>
+  <div class="prof-field-row">
+    <span class="prof-field-label">Bodyweight (lbs)</span>
+    <input class="prof-input" id="prof-weight" type="number" placeholder="e.g. 155" min="50" max="400">
+  </div>
+  <div class="prof-field-row">
+    <span class="prof-field-label">Height</span>
+    <input class="prof-input" id="prof-height" placeholder="e.g. 5'11&quot;" maxlength="10">
+  </div>
+  <div class="prof-field-row">
+    <span class="prof-field-label">Primary Goal</span>
+    <input class="prof-input" id="prof-goal" placeholder="e.g. Jump higher, look different" maxlength="60">
+  </div>
+  <div class="prof-field-row">
+    <span class="prof-field-label">Track Event(s)</span>
+    <input class="prof-input" id="prof-event" placeholder="e.g. Long jump, triple jump" maxlength="40">
+  </div>
+  <div class="prof-field-row">
+    <span class="prof-field-label">Program Start Date</span>
+    <input class="prof-input" id="prof-start" type="date">
+  </div>
+  <button class="prof-save" onclick="saveProfile()">SAVE PROFILE</button>
+</div>
+
+<div class="prof-section">
+  <div class="prof-section-title">About Your Data</div>
+  <div class="prof-info-card">
+    <strong>Where is my data saved?</strong>
+    Everything — your workouts, session log, notes, and profile — is saved directly on this device in your browser's local storage. It stays here as long as you don't clear your browser data.
+  </div>
+  <div class="prof-info-card">
+    <strong>Will I lose my data?</strong>
+    If you clear your browser/app cache or switch to a different browser or device, the data won't carry over. To keep it safe, save the HTML file to your device. Your data lives alongside the file.
+  </div>
+  <div class="prof-info-card">
+    <strong>Cross-device sync</strong>
+    True cloud sync (like an app account) requires a server, which this file doesn't have. If you want your plan on multiple devices, the simplest option is to keep the HTML file in iCloud Drive or Google Drive and open it from there on each device.
+  </div>
+</div>
+
+<div class="prof-section">
+  <div class="prof-section-title">Danger Zone</div>
+  <button class="clr" onclick="clearLog()">Clear All Session Data</button>
+  <button class="clr" style="margin-top:8px;border-color:rgba(255,71,87,.2);color:var(--muted2)" onclick="resetProfile()">Reset Profile</button>
+</div>
+</div>
+
+<!-- RESCHEDULE MODAL -->
+<div class="rs-modal" id="rs-modal" onclick="if(event.target===this)closeRS()">
+<div class="rs-sheet">
+  <div class="rs-handle"></div>
+  <div class="rs-title" id="rs-title">Move Workout</div>
+  <div class="rs-sub" id="rs-sub">Choose a new date for this session.</div>
+  <div class="rs-date-wrap">
+    <div class="rs-date-label">Move to date</div>
+    <input class="rs-date-input" type="date" id="rs-date-input">
+  </div>
+  <button class="rs-confirm" onclick="confirmReschedule()">MOVE TO THIS DATE</button>
+  <button class="rs-cancel" onclick="closeRS()">Cancel</button>
+  <button class="rs-remove" id="rs-remove-btn" onclick="removeOverride()" style="display:none">Remove reschedule (restore original)</button>
+</div>
+</div>
+
+<nav>
+<button class="nb active" onclick="switchTab('home')" id="nav-home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Today</button>
+<button class="nb" onclick="switchTab('plan')" id="nav-plan"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan</button>
+<button class="nb" onclick="switchTab('customize')" id="nav-customize"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="16" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="8" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="18" r="2" fill="currentColor" stroke="none"/></svg>Customize</button>
+<button class="nb" onclick="switchTab('diet')" id="nav-diet"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Diet</button>
+<button class="nb" onclick="switchTab('progress')" id="nav-progress"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Progress</button>
+<button class="nb" onclick="switchTab('profile')" id="nav-profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
+</nav>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────
+const WD = {
+push:{label:'DAY A — PUSH',title:'CHEST + SHOULDERS + TRIS',focus:'Upper body strength · Explosive pressing · Arm size',tag:'push',sections:[
+{type:'s',ex:{id:'wu-push',num:'W',name:'Warm-Up: Band Work + Shoulder Circles',sub:'5 min — do not skip',sets:'—',reps:'5 min',rest:'—',what:'Arm circles (1 min each direction), 2×15 band pull-aparts or light resistance pulls, 10 easy push-ups to get blood into the joints.',steps:['Big slow arm circles — forward 1 min, backward 1 min.','2×15 band pull-aparts: hold a band at chest height and pull it apart to your sides.','10 slow push-ups to warm the pressing muscles before load.'],cue:'The shoulder joint is complex. Cold tendons under load = the fastest way to miss weeks of training. 5 minutes here protects months of progress.',mist:null}},
+{type:'s',lbl:'Block 1 — Compound Strength',note:'Full rest between sets. Heaviest block.',ex:{id:'push-press',num:'01',name:'Dumbbell Bench Press (or Floor Press)',sub:'Primary chest + anterior shoulder + triceps',sets:'4 sets',reps:'8–10 reps',rest:'Rest: 2 min',tempo:'2-1-3',what:'The king of upper body pressing. Lying on a bench (or floor), press dumbbells from chest level to full arm extension. At home the floor press works great — press from the floor with elbows resting between reps.',steps:['Lie flat on a bench or floor. Hold a dumbbell in each hand at chest level, elbows at 45° to your torso.','Press the dumbbells up over 2 seconds until arms are straight.','Squeeze your chest at the top for 1 full second — try to push the dumbbells toward each other.','Lower slowly over 3 seconds back to chest level. Feel the stretch at the bottom.'],cue:'At the top of every rep, squeeze like you\'re trying to crush something between your palms. This forces the chest to actually contract.',mist:'Flaring the elbows out wide (90° from body). This removes the chest and stresses the shoulder joint. Keep elbows at 45°.'}},
+{type:'s',ex:{id:'push-ohp',num:'02',name:'Dumbbell Overhead Press',sub:'Shoulder mass — all three deltoid heads',sets:'4 sets',reps:'8–10 reps',rest:'Rest: 2 min',tempo:'2-1-3',what:'Press two dumbbells directly overhead from shoulder height. The primary shoulder size builder. Wide shoulders are built here.',steps:['Sit or stand with a dumbbell in each hand at shoulder height, palms facing forward.','Press both dumbbells straight up over 2 seconds until fully extended.','At the top, biceps close to your ears. Hold 1 sec, squeezing shoulders.','Lower back to shoulder height over 3 seconds. Keep core tight.'],cue:'Think about pressing up AND slightly back — like putting them behind your head. This recruits the rear delt more for a fuller shoulder look.',mist:'Letting elbows drop below shoulder height at the bottom. Keep tension on the shoulders throughout.'}},
+{type:'ss',lbl:'Superset A — A1 then A2, rest 75 sec, repeat 3×',items:[
+{id:'push-lat',num:'A1',name:'Lateral Raise',sub:'Medial deltoid — shoulder width',sets:'3 sets',reps:'12–15 reps',rest:'—',tempo:'2-1-3',what:'Raise both arms out to the sides to shoulder height. Targets the medial deltoid — the muscle that makes your shoulders look wide from the front.',steps:['Stand with dumbbells at sides, slight elbow bend.','Raise both arms out to the sides over 2 seconds.','Stop at shoulder height — higher shifts load to traps.','Hold 1 sec, lower slowly over 3 seconds.'],cue:'Lead with your pinky/elbow, not your wrist. Thumb slightly toward the floor at the top keeps the medial delt under tension.',mist:'Too much weight, shrugging to get it up. If your traps are cramping, drop the weight 30%.'},
+{id:'push-tri',num:'A2',name:'Overhead Triceps Extension',sub:'Triceps long head — arm thickness',sets:'3 sets',reps:'10–12 reps',rest:'Rest 75 sec after A2',tempo:'2-1-3',what:'One dumbbell held overhead with both hands, lower it behind your head and extend back up. Stretches the long head of the triceps — the largest of the three heads.',steps:['Hold one dumbbell with both hands, cupping the top plate.','Raise overhead, arms straight, close to your ears.','Keeping upper arms vertical, bend elbows to lower behind your head over 3 seconds.','Extend back up over 2 seconds, squeezing hard at lockout for 1 sec.'],cue:'Upper arms stay pointing straight up throughout. The moment they drift forward the long head stops being stretched.',mist:'Elbows flaring wide. Keep them close together, pointing forward.'}
+]},
+{type:'ss',lbl:'Superset B — B1 then B2, rest 75 sec, repeat 3×',items:[
+{id:'push-dpu',num:'B1',name:'Diamond Push-Up',sub:'Chest inner + triceps',sets:'3 sets',reps:'10–15 reps',rest:'—',tempo:'Controlled',what:'Hands form a diamond under your chest. Narrow position forces the triceps and inner chest to do most of the work.',steps:['Hands together under chest, index fingers and thumbs touching.','Body straight line head to heels.','Lower chest toward hands over 3 seconds, elbows close to sides.','Press back up over 2 seconds. Squeeze triceps at top.'],cue:'Slow the descent. The lowering phase builds the most muscle.',mist:'Hips rising into the air on the press up. Keep glutes squeezed and body rigid.'},
+{id:'push-curl',num:'B2',name:'Dumbbell Curl (both arms)',sub:'Biceps — keep arms balanced',sets:'3 sets',reps:'10–12 reps',rest:'Rest 75 sec after B2',tempo:'2-1-3',what:'Standard standing dumbbell curl. Included on push day to keep arms balanced — if you only press and extend, triceps develop faster than biceps which can cause elbow issues over time.',steps:['Stand, dumbbells at sides, palms forward.','Curl both to your shoulders over 2 seconds.','Supinate (rotate pinkies outward) at the top. Hold 1 sec.','Lower slowly over 3 seconds.'],cue:'Keep elbows pinned slightly in front of your hips. They are just a hinge.',mist:'Swinging your torso back. If you\'re swinging, the weight is too heavy.'}
+]}
+]},
+pull:{label:'DAY B — PULL',title:'BACK + BICEPS + REAR DELTS',focus:'Back thickness · Arm size · Posture · Grip strength',tag:'pull',sections:[
+{type:'s',ex:{id:'wu-pull',num:'W',name:'Warm-Up: Shoulder Circles + Light Rows',sub:'5 min — do not skip',sets:'—',reps:'5 min',rest:'—',what:'Warm up the posterior shoulder before loading the pulling muscles. 1 min arm circles each direction, then light resistance rows.',steps:['1 min forward arm circles, 1 min backward.','2×15 band pull-aparts at chest height.','10 light resistance rows (band around a door handle) to prime the lats.'],cue:'The rear delt is easy to overlook. These warm-up rows teach the body to use the rear delt and upper back rather than only the biceps.',mist:null}},
+{type:'s',lbl:'Block 1 — Primary Pulls',note:'2 min rest. Most important exercises of the day.',ex:{id:'pull-row',num:'01',name:'Dumbbell Row (one arm)',sub:'Primary back builder — lats, rhomboids, rear delt',sets:'4 sets each arm',reps:'8–10 reps',rest:'Rest: 2 min',tempo:'2-1-3',what:'Hinge forward, brace one hand on a surface, and row a dumbbell to your hip. Best back exercise you can do with dumbbells — builds lat width and upper back thickness.',steps:['Place one hand and same-side knee on a surface. Other foot flat on floor.','Hold a dumbbell in the free hand, arm hanging straight down.','Row the dumbbell by driving elbow toward ceiling over 2 seconds. Think "elbow to hip."','Pull until the dumbbell reaches your hip. Squeeze hard for 1 sec.','Lower slowly over 3 seconds. Full stretch at the bottom.'],cue:'Pull with your elbow, not your hand. Your hand is just a hook. Imagine putting your elbow into your back pocket.',mist:'Rotating the torso to swing the weight up. Only the arm moves. If body is twisting, drop the weight.'}},
+{type:'s',ex:{id:'pull-pu',num:'02',name:'Pull-Up or Inverted Row',sub:'Lats + biceps — vertical pull',sets:'3 sets',reps:'Max clean reps (aim 5–10)',rest:'Rest: 2 min',tempo:'Slow and controlled',what:'Pull-up: grip a bar overhead and pull until chin clears the bar. At home: inverted row under a sturdy table. Both build lats and biceps.',steps:['PULL-UP: Hang from bar, hands slightly wider than shoulder-width, palms facing away.','Pull up by driving elbows down toward your hips.','Hold 1 sec at top, squeezing lats. Lower slowly over 3 seconds.','INVERTED ROW: Lie under a table, grip the edge, body straight, heels on floor. Pull chest up.'],cue:'At the bottom, don\'t hang completely limp. Keep your shoulders packed — slight lat tension even at the bottom.',mist:'Kipping (swinging legs) to get extra reps. Do fewer honest reps.'}},
+{type:'ss',lbl:'Superset A — A1 then A2, rest 75 sec, repeat 3×',items:[
+{id:'pull-fp',num:'A1',name:'Band Face Pull or Rear Delt Raise',sub:'Rear deltoid — shoulder health + posture',sets:'3 sets',reps:'15 reps',rest:'—',tempo:'2-1-3',what:'Face pulls target the rear deltoid and external rotators — almost always underdeveloped. Strong rear delts make shoulders look 3D and dramatically improve posture.',steps:['Loop a band around a post at head height.','Pull toward your face, driving elbows wide and high.','Fists beside your ears, hold peak for 1 full second.','Return slowly over 3 seconds.'],cue:'Light weight, full squeeze. 15 controlled reps beats 8 heavy sloppy ones.',mist:'Pulling to the neck or chest like a row. Elbows need to be high and wide.'},
+{id:'pull-hc',num:'A2',name:'Hammer Curl (neutral grip)',sub:'Brachialis — arm thickness',sets:'3 sets',reps:'10–12 reps',rest:'Rest 75 sec after A2',tempo:'2-1-3',what:'A curl with palms facing each other the entire time. Shifts load to the brachialis — a muscle under the bicep that pushes it upward when developed, making the arm look bigger.',steps:['Stand with dumbbells at sides, palms facing each other.','Curl both simultaneously, keeping neutral grip the ENTIRE way.','Squeeze at the top for 1 sec.','Lower slowly over 3 seconds.'],cue:'Keep the grip strictly neutral the whole way. Resisting the urge to rotate is what makes this distinct.',mist:'Swinging elbows forward at the top. Pin elbows to your sides throughout.'}
+]},
+{type:'ss',lbl:'Superset B — B1 then B2, rest 75 sec, repeat 3×',items:[
+{id:'pull-cc',num:'B1',name:'Concentration Curl (drop set on last set)',sub:'Isolated bicep peak finisher',sets:'3 sets',reps:'10 reps (last set: drop 8+8)',rest:'—',tempo:'2-1-3',what:'Seated, brace the back of your upper arm against your inner thigh and curl. The thigh acts as a brace — 100% of work goes through the bicep. On the last set, drop weight and do 2 more mini-sets.',steps:['Sit on a bench, lean forward, legs spread wide.','Rest back of upper arm against inner thigh.','Curl from full extension to near shoulder, supinating hard at the top.','Squeeze peak for 1 full second. Lower over 3 seconds.','Last set only: do 10 reps, drop 20%, do 8 more, drop again, do 8 final reps.'],cue:'The thigh brace only works if you keep your upper arm pressed against your leg throughout.',mist:'Going too heavy. At this point in the session biceps are fatigued. Lighter weight, honest reps.'},
+{id:'pull-sh',num:'B2',name:'Dumbbell Shrug',sub:'Traps — upper back thickness',sets:'3 sets',reps:'12–15 reps',rest:'Rest 75 sec after B2',tempo:'2-2-2',what:'Standing with heavy dumbbells, shrug straight up toward ears, hold, lower. Builds the trapezius — makes upper back look thick.',steps:['Stand with heavy dumbbells at your sides.','Shrug straight up toward ears over 2 seconds.','Hold at top for 2 full seconds. Really squeeze.','Lower over 2 seconds. Straight up and down — no rolling.'],cue:'Hold the top longer than feels comfortable. That sustained squeeze is what activates the trap.',mist:'Rolling the shoulders in a circle. No benefit, stresses the AC joint.'}
+]}
+]},
+legs:{label:'DAY C — LEGS + POWER',title:'LEGS + EXPLOSIVE POWER',focus:'Glutes · Hamstrings · Quads · Jump performance · Track prep',tag:'legs',sections:[
+{type:'s',ex:{id:'wu-legs',num:'W',name:'Dynamic Warm-Up — Hip + Knee Activation',sub:'8 min — critical for jump athletes',sets:'—',reps:'8 min',rest:'—',what:'Before heavy leg work or plyometrics, the hips, glutes, and ankles need to be firing correctly. Cold glutes on a squat = knees caving in = injury.',steps:['Leg swings: 15 forward/back each leg, then 15 side-to-side.','Glute bridges: 2×12, squeeze hard at top.','World\'s greatest stretch: Lunge forward, rotate same-side arm to ceiling. 5 each side.','Lateral walks: 10 steps each direction — activates hip abductors.'],cue:'The glutes are the engine for your jump events. If they\'re not warm and firing, your quads and lower back compensate.',mist:null}},
+{type:'s',lbl:'Block 1 — Strength Compound',note:'2–2.5 min rest. Heaviest block. Foundation for explosive power.',ex:{id:'legs-sq',num:'01',name:'Goblet Squat or Dumbbell Squat',sub:'Quads, glutes, hamstrings — primary compound',sets:'4 sets',reps:'8–10 reps',rest:'Rest: 2.5 min',tempo:'3-1-2',what:'A squat holding a dumbbell at your chest. Keeps your torso upright and forces hips to sit back and down. For jump athletes, the squat is the cornerstone of explosive leg power.',steps:['Stand feet shoulder-width, toes angled out 15–30°. Hold one dumbbell vertically at chest.','Take a deep breath and brace your core hard.','Push knees out in the direction of your toes and sit hips back AND down over 3 seconds.','Descend until thighs are parallel or below. Don\'t let heels rise.','Drive through heels, squeeze glutes to stand over 2 seconds. Squeeze hard at top.'],cue:'Drive your knees outward the entire time — both down and up. "Knees out" is the single most important squat cue.',mist:'Heels rising. Elevate heels slightly (a 10lb plate) or reduce depth until ankle mobility improves.'}},
+{type:'s',ex:{id:'legs-rdl',num:'02',name:'Romanian Deadlift (RDL)',sub:'Hamstrings + glutes — posterior chain power',sets:'4 sets',reps:'8–10 reps',rest:'Rest: 2.5 min',tempo:'3-1-2',what:'Push hips back, keeping back flat, lowering dumbbells until you feel a deep hamstring stretch, then drive hips forward. Best exercise for hamstring and glute strength that transfers directly to jumping.',steps:['Stand with dumbbells in front of thighs, feet hip-width apart.','Slight knee bend — maintain this throughout.','Push hips BACK as you hinge — imagine a rope pulling your hips toward the wall behind you.','Lower dumbbells along your legs over 3 seconds.','Go until strong hamstring stretch, then drive hips forward.','Squeeze glutes hard at the top for 1 full second.'],cue:'The RDL is a HIP hinge, not a back bend. Your back stays flat and rigid the entire time.',mist:'Bending the knees into a squat. The legs stay almost straight. If knees are bending more, you\'re accidentally squatting.'}},
+{type:'s',lbl:'Block 2 — Explosive Power (Track-Specific)',note:'Full rest. Quality over quantity. Every jump is max effort.',ex:{id:'legs-jmp',num:'03',name:'Squat Jump or Broad Jump',sub:'Explosive power — fast-twitch recruitment',sets:'4 sets',reps:'5 max-effort jumps',rest:'Rest: 2 min (full rest — power training)',what:'Explosive bodyweight jump from a squat position. Power training requires full rest. These jumps train the nervous system to fire muscles faster — exactly what you need for field events.',steps:['Stand feet shoulder-width, arms at sides.','Quickly dip into a quarter-squat, swing arms back.','Explode upward as forcefully as possible, throwing arms overhead. MAXIMUM effort.','Land softly — bend knees to absorb force.','Reset completely — stand up, breathe, prepare, then go again.'],cue:'Every jump is 100% effort. If you\'re conserving energy, you\'re training endurance not power.',mist:'Rushing into the next jump. Take 10–15 seconds between each jump.'}},
+{type:'ss',lbl:'Superset A — A1 then A2, rest 90 sec, repeat 3×',items:[
+{id:'legs-lu',num:'A1',name:'Reverse Lunge (dumbbell)',sub:'Quad + glute — single-leg stability',sets:'3 sets',reps:'10 each leg',rest:'—',tempo:'2-1-2',what:'Step one foot backward, lower back knee toward floor, push through front foot to return. Exposes and corrects strength imbalances between legs — critical for jump athletes.',steps:['Stand with a dumbbell in each hand.','Step one foot straight back, lower back knee toward floor.','Front shin stays close to vertical.','Push through front heel to return to standing.'],cue:'Control the descent — 2 full seconds on the way down.',mist:'Front knee caving inward on the push back up. Drive the knee outward in line with your toes.'},
+{id:'legs-cr',num:'A2',name:'Single-Leg Calf Raise',sub:'Gastrocnemius + soleus — ankle power',sets:'3 sets',reps:'15 each leg',rest:'Rest 90 sec after A2',tempo:'2-3-1',what:'Standing on one foot on the edge of a step, raise onto the ball of your foot then lower your heel slowly. Strong calves and ankles are critical for jump athletes.',steps:['Stand on one foot on edge of a step, heel hanging off. Hold something for balance.','Lower heel as far below the step as possible.','Press up onto ball of foot as high as possible over 2 seconds.','Hold top for 1 sec. Lower slowly over 3 seconds.'],cue:'Full range every rep — deep stretch at the bottom, high rise at the top.',mist:'Calf raises flat on the floor. Without the heel dropping below level you miss half the range of motion.'}
+]}
+]}
+};
+
+// ── STORAGE ───────────────────────────────────────────────────────
+const gl=()=>{try{return JSON.parse(localStorage.getItem('wl')||'[]')}catch{return[]}};
+const sl2=(l)=>localStorage.setItem('wl',JSON.stringify(l));
+const gn=()=>localStorage.getItem('wn')||'';
+const sn=()=>localStorage.setItem('wn',document.getElementById('notes').value);
+const gc=()=>{try{return JSON.parse(localStorage.getItem('cw')||'[]')}catch{return[]}};
+const sc=(w)=>localStorage.setItem('cw',JSON.stringify(w));
+const gee=()=>{try{return JSON.parse(localStorage.getItem('ee')||'{}')}catch{return{}}};
+const see2=(e)=>localStorage.setItem('ee',JSON.stringify(e));
+const gsl=()=>{try{return JSON.parse(localStorage.getItem('sl')||'{}')}catch{return{}}};
+const ssl=(s)=>localStorage.setItem('sl',JSON.stringify(s));
+window.saveNotes=sn;
+
+let cW=null,cWisC=false,eidx=-1,eeType=null;
+
+// ── NAV ───────────────────────────────────────────────────────────
+function switchTab(t){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+t).classList.add('active');
+  document.getElementById('nav-'+t).classList.add('active');
+  if(t==='home')rHome();
+  if(t==='progress')rProg();
+  if(t==='customize')rCust();
+  if(t==='diet')initWater();
+  if(t==='profile')rProfile();
+}
+
+// ── HOME ──────────────────────────────────────────────────────────
+function gWD(){
+  const log=gl(),now=new Date(),ws=new Date(now);
+  ws.setDate(now.getDate()-now.getDay());ws.setHours(0,0,0,0);
+  return log.filter(e=>new Date(e.date)>=ws);
+}
+function rHome(){
+  const wd=gWD(),ds=wd.map(e=>e.type);
+  const pct=Math.min(100,Math.round((ds.filter(t=>['push','pull','legs'].includes(t)).length/3)*100));
+  const circ=188.5,off=circ-(pct/100)*circ;
+  document.getElementById('rc').style.strokeDashoffset=off;
+  document.getElementById('rpct').textContent=pct+'%';
+  const log=gl();
+  const wk=Math.max(1,Math.ceil(log.length/3));
+  document.getElementById('ht-title').textContent='Week '+wk;
+  const prog=ds.filter(t=>['push','pull','legs'].includes(t)).length;
+  document.getElementById('ht-sub').innerHTML=prog>=3?'Program week complete. <span class="at">Rest up.</span>':`${prog}/3 program sessions done. <span class="at">${3-prog} remaining.</span>`;
+  ['push','pull','legs'].forEach(t=>{
+    const done=ds.includes(t);
+    document.getElementById('day-'+t).classList.toggle('done',done);
+    document.getElementById('dl-'+t).textContent=done?'✓':{push:'A',pull:'B',legs:'C'}[t];
+  });
+  const customs=gc();
+  const hc=document.getElementById('home-customs');
+  if(customs.length){
+    hc.innerHTML='<div class="wl" style="margin-top:14px">My Custom Workouts</div>'+
+      customs.map((c,i)=>{
+        const done=ds.includes('cx_'+i);
+        return `<div class="dc ${done?'cdone':''}" onclick="openCW(${i})">
+          <div class="dl">${done?'✓':'★'}</div>
+          <div class="di"><div class="dn">${esc(c.name)}</div><div class="ds">${esc(c.focus||c.exercises.slice(0,3).map(e=>e.name).join(' · '))}</div></div>
+          <div class="dtag tc">Custom</div>
+        </div>`;
+      }).join('');
+  } else hc.innerHTML='';
+  const row=document.getElementById('srow');row.innerHTML='';
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const has=log.some(e=>new Date(e.date).toDateString()===d.toDateString());
+    const dot=document.createElement('div');dot.className='sd';
+    if(has)dot.classList.add(i===0?'today':'hit');
+    else if(i===0)dot.classList.add('today');
+    row.appendChild(dot);
+  }
+  // sync calendar to current month on home refresh
+  calViewYear=new Date().getFullYear();
+  calViewMonth=new Date().getMonth();
+  renderCalendar();
+}
+
+// ── WORKOUT SCREEN ────────────────────────────────────────────────
+function openW(type){
+  cW=type;cWisC=false;
+  const w=WD[type],edits=gee()[type]||{};
+  document.getElementById('wd-label').textContent=w.label;
+  document.getElementById('wd-title').textContent=w.title;
+  document.getElementById('wd-focus').textContent=w.focus;
+  const done=gWD().map(e=>e.type).includes(type);
+  let html='';
+  w.sections.forEach(sec=>{
+    if(sec.lbl)html+=`<div class="sdiv">${sec.lbl}</div>`;
+    if(sec.note)html+=`<div style="font-size:11.5px;color:var(--muted2);font-style:italic;margin-bottom:9px;line-height:1.5">${sec.note}</div>`;
+    if(sec.type==='s')html+=rEx(sec.ex,edits[sec.ex.id]);
+    else if(sec.type==='ss'){
+      html+=`<div class="sw"><div class="slbl">⚡ ${sec.lbl}</div>`;
+      sec.items.forEach(ex=>html+=rEx(ex,edits[ex.id]));
+      html+=`</div>`;
+    }
+  });
+  html+=`<button class="cbtn ${done?'done':''}" onclick="completeW()" id="cwbtn">${done?'✓ LOGGED — Tap to Undo':'MARK SESSION COMPLETE'}</button>`;
+  document.getElementById('wc').innerHTML=html;
+  showWS();
+}
+
+function rEx(ex,edits){
+  const sets=edits?.sets||ex.sets,reps=edits?.reps||ex.reps,wt=edits?.weight;
+  const chips=[
+    sets?`<span class="chip cs">${sets}</span>`:'',
+    reps?`<span class="chip cr">${reps}</span>`:'',
+    ex.rest&&ex.rest!=='—'?`<span class="chip ct">${ex.rest}</span>`:'',
+    ex.tempo?`<span class="chip ct">${ex.tempo}</span>`:'',
+    wt?`<span class="chip ct">🎯 ${wt} lbs</span>`:''
+  ].join('');
+  const steps=ex.steps?'<ul class="esteps">'+ex.steps.map((s,i)=>`<li><span class="sn">${i+1}</span><span>${s}</span></li>`).join('')+'</ul>':'';
+  const cue=ex.cue?`<div class="cue"><strong>Key Cue</strong>${ex.cue}</div>`:'';
+  const mist=ex.mist?`<div class="mist"><strong>Common Mistake</strong>${ex.mist}</div>`:'';
+  const logger=ex.num!=='W'?rLogger(ex.id,sets,reps):'';
+  return `<div class="eb"><div class="ec" id="ec-${ex.id}">
+    <div class="eh" onclick="tEx(document.getElementById('ec-${ex.id}'))">
+      <div class="en">${ex.num}</div>
+      <div><div class="enm">${ex.name}</div><div class="esub">${ex.sub}</div><div class="chips">${chips}</div></div>
+      <div class="ecv">▼</div>
+    </div>
+    <div class="ebody"><div class="ewhat">${ex.what}</div>${steps}${cue}${mist}${logger}</div>
+  </div></div>`;
+}
+
+function rLogger(exId,setsStr,repsStr){
+  const num=parseInt(setsStr)||3;
+  const key=(cWisC?'cx_'+cW:cW)+'_'+exId;
+  const saved=gsl()[key]||[];
+  let rows='';
+  for(let i=0;i<Math.max(num,saved.length||num);i++){
+    const s=saved[i]||{};
+    rows+=`<div class="sl-row"><div class="sl-lbl">${i+1}</div>
+      <input class="si" type="number" placeholder="${repsStr?.match(/\d+/)?.[0]||'—'}" value="${s.reps||''}" min="0" onchange="sSD('${exId}',${i},'reps',this.value)">
+      <input class="si" type="number" placeholder="lbs" value="${s.weight||''}" min="0" onchange="sSD('${exId}',${i},'weight',this.value)">
+      <input class="si" type="number" placeholder="RPE" value="${s.rpe||''}" min="1" max="10" onchange="sSD('${exId}',${i},'rpe',this.value)">
+      <button class="sdb ${s.done?'chk':''}" onclick="tSD('${exId}',${i},this)">✓</button>
+    </div>`;
+  }
+  return `<div class="sl"><div class="sl-title">Log Your Sets</div>
+    <div class="sl-hdr"><div class="sl-col">Set</div><div class="sl-col">Reps</div><div class="sl-col">Weight</div><div class="sl-col">RPE</div><div class="sl-col">✓</div></div>
+    <div id="sr-${exId}">${rows}</div>
+    <button class="asr" onclick="addSR('${exId}','${repsStr?.match(/\d+/)?.[0]||''}')">+ Add Set</button>
+  </div>`;
+}
+
+function sSD(exId,idx,field,val){
+  const s=gsl();const key=(cWisC?'cx_'+cW:cW)+'_'+exId;
+  if(!s[key])s[key]=[];if(!s[key][idx])s[key][idx]={};
+  s[key][idx][field]=val;ssl(s);
+}
+function tSD(exId,idx,btn){
+  const s=gsl();const key=(cWisC?'cx_'+cW:cW)+'_'+exId;
+  if(!s[key])s[key]=[];if(!s[key][idx])s[key][idx]={};
+  s[key][idx].done=!s[key][idx].done;btn.classList.toggle('chk',s[key][idx].done);ssl(s);
+}
+function addSR(exId,rp){
+  const c=document.getElementById('sr-'+exId);const idx=c.children.length;
+  const r=document.createElement('div');r.className='sl-row';
+  r.innerHTML=`<div class="sl-lbl">${idx+1}</div>
+    <input class="si" type="number" placeholder="${rp||'—'}" min="0" onchange="sSD('${exId}',${idx},'reps',this.value)">
+    <input class="si" type="number" placeholder="lbs" min="0" onchange="sSD('${exId}',${idx},'weight',this.value)">
+    <input class="si" type="number" placeholder="RPE" min="1" max="10" onchange="sSD('${exId}',${idx},'rpe',this.value)">
+    <button class="sdb" onclick="tSD('${exId}',${idx},this)">✓</button>`;
+  c.appendChild(r);
+}
+function tEx(card){card.classList.toggle('open')}
+function showWS(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-workout').classList.add('active');
+  window.scrollTo(0,0);
+}
+function goBack(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-home').classList.add('active');
+  document.getElementById('nav-home').classList.add('active');
+  rHome();
+}
+function completeW(){
+  const wd=gWD().map(e=>e.type);
+  const type=cWisC?'cx_'+cW:cW;
+  // if already logged, treat as unlog
+  if(wd.includes(type)){unlogW(type);return;}
+  const log=gl();
+  const name=cWisC?gc()[cW]?.name:WD[cW]?.title;
+  log.unshift({type,date:new Date().toISOString(),name});
+  sl2(log);
+  const btn=document.getElementById('cwbtn');
+  btn.textContent='✓ LOGGED — Tap to Undo';btn.classList.add('done');
+  calViewYear=new Date().getFullYear();
+  calViewMonth=new Date().getMonth();
+  renderCalendar();
+  toast('Session logged! 🔥');
+}
+
+function unlogW(type){
+  if(!confirm('Remove this session from your log?'))return;
+  const today=new Date().toDateString();
+  let log=gl();
+  // remove the most recent entry of this type logged today
+  const idx=log.findIndex(e=>e.type===type&&new Date(e.date).toDateString()===today);
+  if(idx===-1){toast('Nothing to remove today');return;}
+  log.splice(idx,1);
+  sl2(log);
+  const btn=document.getElementById('cwbtn');
+  btn.textContent='MARK SESSION COMPLETE';btn.classList.remove('done');
+  calViewYear=new Date().getFullYear();
+  calViewMonth=new Date().getMonth();
+  renderCalendar();
+  toast('Session removed');
+}
+
+// ── CUSTOM WORKOUT VIEWER ─────────────────────────────────────────
+function openCW(idx){
+  cW=idx;cWisC=true;
+  const c=gc()[idx];if(!c)return;
+  document.getElementById('wd-label').textContent='CUSTOM WORKOUT';
+  document.getElementById('wd-title').textContent=c.name.toUpperCase();
+  document.getElementById('wd-focus').textContent=c.focus||'Custom session';
+  const done=gWD().map(e=>e.type).includes('cx_'+idx);
+  let html='';
+  c.exercises.forEach((ex,i)=>{
+    const exId='cx'+idx+'_'+i;
+    const key='cx_'+idx+'_'+exId;const saved=gsl()[key]||[];
+    const num=parseInt(ex.sets)||3;
+    let rows='';
+    for(let s=0;s<Math.max(num,saved.length||num);s++){
+      const sv=saved[s]||{};
+      rows+=`<div class="sl-row"><div class="sl-lbl">${s+1}</div>
+        <input class="si" type="number" placeholder="${ex.reps||'—'}" value="${sv.reps||''}" min="0" onchange="sSD('${exId}',${s},'reps',this.value)">
+        <input class="si" type="number" placeholder="${ex.weight||'lbs'}" value="${sv.weight||''}" min="0" onchange="sSD('${exId}',${s},'weight',this.value)">
+        <input class="si" type="number" placeholder="RPE" value="${sv.rpe||''}" min="1" max="10" onchange="sSD('${exId}',${s},'rpe',this.value)">
+        <button class="sdb ${sv.done?'chk':''}" onclick="tSD('${exId}',${s},this)">✓</button>
+      </div>`;
+    }
+    html+=`<div class="eb"><div class="ec" id="ec-cx${i}">
+      <div class="eh" onclick="tEx(document.getElementById('ec-cx${i}'))">
+        <div class="en">${i+1}</div>
+        <div><div class="enm">${esc(ex.name)}</div><div class="esub">${ex.sets} sets · ${ex.reps} reps${ex.weight?' · '+ex.weight+' lbs':''}</div>
+        <div class="chips"><span class="chip cs">${ex.sets} sets</span><span class="chip cr">${ex.reps} reps</span>${ex.weight?`<span class="chip ct">${ex.weight} lbs</span>`:''}</div></div>
+        <div class="ecv">▼</div>
+      </div>
+      <div class="ebody">
+        <div class="sl"><div class="sl-title">Log Your Sets</div>
+          <div class="sl-hdr"><div class="sl-col">Set</div><div class="sl-col">Reps</div><div class="sl-col">Weight</div><div class="sl-col">RPE</div><div class="sl-col">✓</div></div>
+          <div id="sr-${exId}">${rows}</div>
+          <button class="asr" onclick="addSR('${exId}','${ex.reps||''}')">+ Add Set</button>
+        </div>
+      </div>
+    </div></div>`;
+  });
+  html+=`<button class="cbtn ${done?'done':''}" onclick="completeW()" id="cwbtn">${done?'✓ LOGGED — Tap to Undo':'MARK SESSION COMPLETE'}</button>`;
+  document.getElementById('wc').innerHTML=html;
+  showWS();
+}
+
+// ── CUSTOMIZE ─────────────────────────────────────────────────────
+function rCust(){
+  const customs=gc();const list=document.getElementById('custom-list');
+  if(!customs.length){
+    list.innerHTML=`<div class="es" style="padding:24px 0 18px"><div class="big" style="font-size:30px">✏️</div><p style="font-size:12px">No custom workouts yet.<br>Hit the button below to create one.</p></div>`;
+    return;
+  }
+  list.innerHTML=customs.map((c,i)=>`
+    <div class="cc">
+      <div class="cci"><div class="ccn">${esc(c.name)}</div><div class="ccs">${c.exercises.length} exercises${c.focus?' · '+esc(c.focus):''}</div></div>
+      <div class="cca">
+        <button class="ib" onclick="openCW(${i})">▶</button>
+        <button class="ib" onclick="openEditC(${i})">✏️</button>
+        <button class="ib del" onclick="delC(${i})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function openNewEditor(){
+  eidx=-1;
+  document.getElementById('emod-title').innerHTML='NEW <span class="hl">WORKOUT</span>';
+  document.getElementById('en').value='';
+  document.getElementById('ef2').value='';
+  document.getElementById('eel2').innerHTML='';
+  addEx();addEx();addEx();
+  document.getElementById('emod').classList.add('open');
+}
+function openEditC(idx){
+  const c=gc()[idx];if(!c)return;eidx=idx;
+  document.getElementById('emod-title').innerHTML='EDIT <span class="hl">WORKOUT</span>';
+  document.getElementById('en').value=c.name;
+  document.getElementById('ef2').value=c.focus||'';
+  document.getElementById('eel2').innerHTML='';
+  c.exercises.forEach(ex=>addEx(ex));
+  document.getElementById('emod').classList.add('open');
+}
+function addEx(ex){
+  const list=document.getElementById('eel2');
+  const div=document.createElement('div');div.className='eer';
+  div.innerHTML=`<button class="reb" onclick="this.parentElement.remove()">×</button>
+    <input class="een" placeholder="Exercise name (e.g. Barbell Curl)" value="${esc(ex?.name||'')}">
+    <div class="erf">
+      <input class="ef" type="number" placeholder="3" value="${ex?.sets||''}" min="1">
+      <input class="ef" type="number" placeholder="10" value="${ex?.reps||''}" min="1">
+      <input class="ef" type="number" placeholder="0" value="${ex?.weight||''}" min="0">
+    </div>`;
+  list.appendChild(div);
+}
+function saveCustom(){
+  const name=document.getElementById('en').value.trim();
+  if(!name){toast('Add a workout name first');return}
+  const focus=document.getElementById('ef2').value.trim();
+  const rows=document.querySelectorAll('#eel2 .eer');
+  const exercises=[];
+  rows.forEach(row=>{
+    const nm=row.querySelector('.een').value.trim();if(!nm)return;
+    const fields=row.querySelectorAll('.ef');
+    exercises.push({name:nm,sets:fields[0].value||'3',reps:fields[1].value||'10',weight:fields[2].value||''});
+  });
+  if(!exercises.length){toast('Add at least one exercise');return}
+  const customs=gc();const entry={name,focus,exercises};
+  if(eidx>=0)customs[eidx]=entry;else customs.push(entry);
+  sc(customs);
+  document.getElementById('emod').classList.remove('open');
+  rCust();rHome();toast(eidx>=0?'Workout updated!':'Workout created! ✨');
+}
+function delC(idx){
+  if(!confirm('Delete this workout?'))return;
+  const c=gc();c.splice(idx,1);sc(c);rCust();rHome();toast('Deleted');
+}
+
+// ── EDIT EXISTING ─────────────────────────────────────────────────
+function openEE(type){
+  eeType=type;const w=WD[type];const edits=gee()[type]||{};
+  document.getElementById('eemod-title').innerHTML='EDIT <span class="hl">'+{push:'PUSH',pull:'PULL',legs:'LEGS'}[type]+'</span>';
+  const allEx=[];
+  w.sections.forEach(sec=>{
+    if(sec.type==='s'&&sec.ex.num!=='W')allEx.push(sec.ex);
+    if(sec.type==='ss')sec.items.forEach(ex=>allEx.push(ex));
+  });
+  document.getElementById('ee-list').innerHTML=allEx.map(ex=>{
+    const e=edits[ex.id]||{};
+    return `<div class="eer2">
+      <div class="eet">${ex.num}. ${ex.name}</div>
+      <div class="eef">
+        <div><div class="eel">Sets</div><input class="eei" type="text" placeholder="${ex.sets}" value="${e.sets||''}" data-id="${ex.id}" data-f="sets"></div>
+        <div><div class="eel">Reps</div><input class="eei" type="text" placeholder="${ex.reps}" value="${e.reps||''}" data-id="${ex.id}" data-f="reps"></div>
+        <div><div class="eel">Target lbs</div><input class="eei" type="number" placeholder="—" value="${e.weight||''}" data-id="${ex.id}" data-f="weight"></div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('eemod').classList.add('open');
+}
+function saveEE(){
+  const all=gee();if(!all[eeType])all[eeType]={};
+  document.querySelectorAll('#ee-list .eei').forEach(inp=>{
+    const id=inp.dataset.id,f=inp.dataset.f,v=inp.value.trim();
+    if(!all[eeType][id])all[eeType][id]={};
+    if(v)all[eeType][id][f]=v;else delete all[eeType][id][f];
+  });
+  see2(all);
+  document.getElementById('eemod').classList.remove('open');
+  toast('Changes saved!');
+}
+
+// ── PROGRESS ──────────────────────────────────────────────────────
+function rProg(){
+  const log=gl();
+  document.getElementById('st-total').textContent=log.length;
+  document.getElementById('st-streak').textContent=Math.floor(log.length/3);
+  document.getElementById('st-push').textContent=log.filter(e=>e.type==='push').length;
+  document.getElementById('st-legs').textContent=log.filter(e=>e.type==='legs').length;
+  const listEl=document.getElementById('log-list');
+  if(!log.length){listEl.innerHTML=`<div class="es"><div class="big">📋</div><p>No sessions yet.<br>Complete your first workout.</p></div>`;return}
+  listEl.innerHTML=log.slice(0,25).map((e,i)=>{
+    const d=new Date(e.date);
+    const em=e.type==='push'?'💪':e.type==='pull'?'🏋️':e.type==='legs'?'🦵':'⭐';
+    const lbl=WD[e.type]?.label||e.name||e.type;
+    return `<div class="le"><div><div class="ln">${em} ${esc(lbl)}</div><div class="ld">${d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}</div></div><div style="display:flex;align-items:center;gap:8px"><button class="unlog-btn" onclick="unlogEntry(${i})" title="Remove session">✕</button><div style="font-size:17px">✅</div></div></div>`;
+  }).join('');
+  document.getElementById('notes').value=gn();
+}
+
+function unlogEntry(displayIdx){
+  if(!confirm('Remove this session from your log?'))return;
+  const log=gl();
+  const entry=log.slice(0,25)[displayIdx];
+  if(!entry) return;
+  // find actual index in full log
+  const actualIdx=log.findIndex(e=>e.date===entry.date&&e.type===entry.type);
+  if(actualIdx===-1) return;
+  log.splice(actualIdx,1);
+  sl2(log);
+  calViewYear=new Date().getFullYear();
+  calViewMonth=new Date().getMonth();
+  renderCalendar();
+  rHome();
+  rProg();
+  toast('Session removed');
+}
+function clearLog(){
+  if(!confirm('Clear all session data? This cannot be undone.'))return;
+  localStorage.removeItem('wl');localStorage.removeItem('wn');localStorage.removeItem('sl');
+  rProg();rHome();toast('Data cleared');
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// ── CALENDAR ─────────────────────────────────────────────────────
+// Mon=1,Wed=3,Fri=5 => days of week for training
+const TRAIN_DAYS=[1,3,5]; // Mon/Wed/Fri
+const DAY_ORDER=['push','pull','legs'];
+let calViewYear=new Date().getFullYear();
+let calViewMonth=new Date().getMonth();
+
+// reschedule overrides: { 'YYYY-MM-DD_original': 'YYYY-MM-DD_new' }
+// stored as array of {from, to, type}
+function getOverrides(){try{return JSON.parse(localStorage.getItem('cal_ov')||'[]')}catch{return[]}}
+function saveOverrides(ov){localStorage.setItem('cal_ov',JSON.stringify(ov))}
+
+function dateKey(date){
+  const d=new Date(date);d.setHours(0,0,0,0);
+  return d.toISOString().slice(0,10);
+}
+
+function getScheduleStart(){
+  const log=gl();
+  if(!log.length) return null;
+  return new Date(log[log.length-1].date);
+}
+
+function getBaseScheduledType(date){
+  // Returns what type is scheduled on this date ignoring overrides
+  const start=getScheduleStart();
+  if(!start) return null;
+  const d=new Date(date);d.setHours(0,0,0,0);
+  const s=new Date(start);s.setHours(0,0,0,0);
+  const dow=d.getDay();
+  if(!TRAIN_DAYS.includes(dow)) return null;
+  if(d<s) return null;
+  let count=0;
+  const cur=new Date(s);
+  while(cur<=d){
+    if(TRAIN_DAYS.includes(cur.getDay())) count++;
+    cur.setDate(cur.getDate()+1);
+  }
+  const startLog=gl()[gl().length-1];
+  const startType=startLog?startLog.type:'push';
+  const startIdx=DAY_ORDER.indexOf(startType)<0?0:DAY_ORDER.indexOf(startType);
+  return DAY_ORDER[(startIdx+(count-1))%3];
+}
+
+function getScheduledType(date){
+  // Returns scheduled type accounting for overrides
+  const key=dateKey(date);
+  const ov=getOverrides();
+  // Is this date a move-destination?
+  const asTarget=ov.find(o=>o.to===key);
+  if(asTarget) return asTarget.type;
+  // Is this date moved away FROM (overridden)?
+  const asSrc=ov.find(o=>o.from===key);
+  if(asSrc) return null; // original slot removed
+  return getBaseScheduledType(date);
+}
+
+function isMovedFrom(date){
+  const key=dateKey(date);
+  return getOverrides().some(o=>o.from===key);
+}
+
+function isMovedTo(date){
+  const key=dateKey(date);
+  return getOverrides().some(o=>o.to===key);
+}
+
+function getDoneType(date){
+  const log=gl();
+  const ds=new Date(date);ds.setHours(0,0,0,0);
+  const entry=log.find(e=>{const ed=new Date(e.date);ed.setHours(0,0,0,0);return ed.getTime()===ds.getTime();});
+  return entry?entry.type:null;
+}
+
+// ── RESCHEDULE STATE ──────────────────────────────────────────────
+let rsFromDate=null;
+let rsWorkoutType=null;
+
+function openReschedule(dateStr, type, isExistingOverride){
+  rsFromDate=dateStr;
+  rsWorkoutType=type;
+  const labels={push:'Push Day',pull:'Pull Day',legs:'Legs Day'};
+  const colors={push:'var(--accent)',pull:'var(--gold)',legs:'var(--green)'};
+  const d=new Date(dateStr+'T12:00:00');
+  const fmt=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  document.getElementById('rs-title').innerHTML=`<span style="color:${colors[type]||'var(--accent)'}">${labels[type]||type}</span>`;
+  document.getElementById('rs-sub').textContent=`Originally scheduled ${fmt}. Pick a new date to move it to.`;
+  // default new date = tomorrow
+  const tomorrow=new Date(d);tomorrow.setDate(tomorrow.getDate()+1);
+  const ov=getOverrides().find(o=>o.from===dateStr);
+  document.getElementById('rs-date-input').value=ov?ov.to:tomorrow.toISOString().slice(0,10);
+  document.getElementById('rs-remove-btn').style.display=isExistingOverride?'block':'none';
+  document.getElementById('rs-modal').classList.add('open');
+}
+
+function closeRS(){
+  document.getElementById('rs-modal').classList.remove('open');
+  rsFromDate=null;rsWorkoutType=null;
+}
+
+function confirmReschedule(){
+  const newDate=document.getElementById('rs-date-input').value;
+  if(!newDate){toast('Pick a date first');return;}
+  if(newDate===rsFromDate){closeRS();return;}
+  const ov=getOverrides().filter(o=>o.from!==rsFromDate&&o.to!==newDate);
+  ov.push({from:rsFromDate,to:newDate,type:rsWorkoutType});
+  saveOverrides(ov);
+  closeRS();
+  renderCalendar();
+  rHome();
+  const d=new Date(newDate+'T12:00:00');
+  const fmt=d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+  toast('Moved to '+fmt+' ✓');
+}
+
+function removeOverride(){
+  if(!confirm('Restore this session to its original date?'))return;
+  const ov=getOverrides().filter(o=>o.from!==rsFromDate);
+  saveOverrides(ov);
+  closeRS();
+  renderCalendar();
+  rHome();
+  toast('Restored to original date');
+}
+
+function renderCalendar(){
+  const el=document.getElementById('cal-section');
+  const start=getScheduleStart();
+  if(!start){el.style.display='none';return;}
+  el.style.display='block';
+
+  const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent=monthNames[calViewMonth]+' '+calViewYear;
+
+  const grid=document.getElementById('cal-grid');
+  const headers=Array.from(grid.children).slice(0,7);
+  grid.innerHTML='';
+  headers.forEach(h=>grid.appendChild(h));
+
+  const firstDay=new Date(calViewYear,calViewMonth,1);
+  const lastDay=new Date(calViewYear,calViewMonth+1,0);
+  const today=new Date();today.setHours(0,0,0,0);
+
+  for(let i=0;i<firstDay.getDay();i++){
+    const blank=document.createElement('div');blank.className='cal-day';grid.appendChild(blank);
+  }
+
+  for(let d=1;d<=lastDay.getDate();d++){
+    const date=new Date(calViewYear,calViewMonth,d);
+    const dKey=dateKey(date);
+    const div=document.createElement('div');
+    div.className='cal-day this-month';
+
+    const isToday=date.getTime()===today.getTime();
+    if(isToday) div.classList.add('today');
+
+    const done=getDoneType(date);
+    const scheduled=getScheduledType(date);
+    const baseScheduled=getBaseScheduledType(date);
+    const movedFrom=isMovedFrom(date);
+    const movedTo=isMovedTo(date);
+    const isPast=date<today;
+
+    const dn=document.createElement('div');dn.className='cal-dn';dn.textContent=d;
+    const dt=document.createElement('div');dt.className='cal-dt';
+
+    if(done){
+      div.classList.add('done-day');
+      dt.textContent='✓';
+    } else if(movedFrom&&!done){
+      // original date that was moved away — show as strikethrough/faded
+      div.classList.add('missed-day');
+      dt.textContent='↪';
+      div.classList.add('clickable');
+      // clicking lets you restore or re-move
+      const ov=getOverrides().find(o=>o.from===dKey);
+      if(ov){
+        div.onclick=()=>openReschedule(dKey,ov.type,true);
+      }
+    } else if(movedTo&&!done){
+      // this is a destination date
+      div.classList.add('moved-day');
+      dt.textContent={push:'Push ↪',pull:'Pull ↪',legs:'Legs ↪'}[scheduled]||'↪';
+      div.classList.add('clickable');
+      const ov=getOverrides().find(o=>o.to===dKey);
+      if(ov) div.onclick=()=>openReschedule(ov.from,ov.type,true);
+    } else if(scheduled&&!done){
+      if(scheduled==='push') div.classList.add('push-day');
+      else if(scheduled==='pull') div.classList.add('pull-day');
+      else if(scheduled==='legs') div.classList.add('legs-day');
+      dt.textContent={push:'Push',pull:'Pull',legs:'Legs'}[scheduled];
+      if(isPast&&!isToday) div.classList.add('missed-day');
+      // make missed past days or today's clickable for reschedule
+      if((isPast||isToday)&&!done){
+        div.classList.add('clickable');
+        div.onclick=()=>openReschedule(dKey,scheduled,false);
+      }
+    } else if(baseScheduled&&movedFrom){
+      // already handled above
+    }
+
+    div.appendChild(dn);
+    if(done||scheduled||movedFrom||movedTo) div.appendChild(dt);
+    grid.appendChild(div);
+  }
+}
+
+function calPrev(){
+  calViewMonth--;
+  if(calViewMonth<0){calViewMonth=11;calViewYear--;}
+  renderCalendar();
+}
+function calNext(){
+  calViewMonth++;
+  if(calViewMonth>11){calViewMonth=0;calViewYear++;}
+  renderCalendar();
+}
+
+// ── PRESET LIBRARY ────────────────────────────────────────────────
+const PRESETS={
+  'Chest · Shoulders · Arms':[
+    {name:'Barbell Bench Press',meta:'Chest compound · 4 sets · 6–8 reps',sets:'4',reps:'6',weight:''},
+    {name:'Incline Dumbbell Press',meta:'Upper chest · 3 sets · 8–10 reps',sets:'3',reps:'8',weight:''},
+    {name:'Dumbbell Flye',meta:'Chest isolation · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Cable Crossover',meta:'Chest stretch · 3 sets · 12–15 reps',sets:'3',reps:'12',weight:''},
+    {name:'Push-Up',meta:'Bodyweight chest · 3 sets · to failure',sets:'3',reps:'15',weight:''},
+    {name:'Overhead Press (Barbell)',meta:'Shoulder compound · 4 sets · 6–8 reps',sets:'4',reps:'6',weight:''},
+    {name:'Dumbbell Shoulder Press',meta:'Shoulders · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+    {name:'Lateral Raise',meta:'Medial delt · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Front Raise',meta:'Anterior delt · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Arnold Press',meta:'Full delt · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+    {name:'Barbell Curl',meta:'Biceps · 4 sets · 8–10 reps',sets:'4',reps:'8',weight:''},
+    {name:'Dumbbell Curl',meta:'Biceps · 3 sets · 10–12 reps',sets:'3',reps:'10',weight:''},
+    {name:'Hammer Curl',meta:'Brachialis · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Preacher Curl',meta:'Biceps peak · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+    {name:'Incline Dumbbell Curl',meta:'Long head biceps · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Triceps Pushdown',meta:'Triceps · 3 sets · 12–15 reps',sets:'3',reps:'12',weight:''},
+    {name:'Skull Crushers',meta:'Triceps compound · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+    {name:'Close-Grip Bench Press',meta:'Triceps heavy · 4 sets · 8 reps',sets:'4',reps:'8',weight:''},
+    {name:'Overhead Triceps Extension',meta:'Long head · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Diamond Push-Up',meta:'Bodyweight tris · 3 sets · to failure',sets:'3',reps:'12',weight:''},
+    {name:'Wrist Curl',meta:'Forearms · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Reverse Curl',meta:'Brachioradialis · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+  ],
+  'Back · Biceps':[
+    {name:'Deadlift',meta:'Back + posterior chain · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Barbell Row',meta:'Upper back compound · 4 sets · 6–8 reps',sets:'4',reps:'6',weight:''},
+    {name:'Dumbbell Row',meta:'Lat + rhomboids · 4 sets · 8–10 reps',sets:'4',reps:'8',weight:''},
+    {name:'Pull-Up',meta:'Lats + biceps · 3 sets · max reps',sets:'3',reps:'8',weight:''},
+    {name:'Chin-Up',meta:'Biceps dominant · 3 sets · max reps',sets:'3',reps:'8',weight:''},
+    {name:'Lat Pulldown',meta:'Lat width · 3 sets · 10–12 reps',sets:'3',reps:'10',weight:''},
+    {name:'Seated Cable Row',meta:'Mid-back · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'T-Bar Row',meta:'Upper back thickness · 3 sets · 8 reps',sets:'3',reps:'8',weight:''},
+    {name:'Face Pull',meta:'Rear delt + rotators · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Inverted Row',meta:'Bodyweight pull · 3 sets · max reps',sets:'3',reps:'10',weight:''},
+    {name:'Single-Arm Cable Row',meta:'Unilateral back · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Shrug',meta:'Traps · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Rack Pull',meta:'Upper back + traps · 3 sets · 5 reps',sets:'3',reps:'5',weight:''},
+    {name:'Good Morning',meta:'Hamstrings + lower back · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+  ],
+  'Legs · Glutes':[
+    {name:'Barbell Back Squat',meta:'Quad dominant · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Goblet Squat',meta:'Quad + glutes · 4 sets · 10 reps',sets:'4',reps:'10',weight:''},
+    {name:'Romanian Deadlift',meta:'Hamstrings + glutes · 4 sets · 8–10 reps',sets:'4',reps:'8',weight:''},
+    {name:'Bulgarian Split Squat',meta:'Single leg · 3 sets · 10 reps each',sets:'3',reps:'10',weight:''},
+    {name:'Reverse Lunge',meta:'Quad + glute · 3 sets · 10 reps each',sets:'3',reps:'10',weight:''},
+    {name:'Hip Thrust',meta:'Glutes · 4 sets · 12 reps',sets:'4',reps:'12',weight:''},
+    {name:'Leg Press',meta:'Quad focused · 3 sets · 12–15 reps',sets:'3',reps:'12',weight:''},
+    {name:'Leg Curl',meta:'Hamstring isolation · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Leg Extension',meta:'Quad isolation · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Box Jump',meta:'Explosive power · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Broad Jump',meta:'Horizontal power · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Single-Leg Calf Raise',meta:'Calves · 3 sets · 15 reps each',sets:'3',reps:'15',weight:''},
+    {name:'Calf Raise',meta:'Bilateral calves · 4 sets · 20 reps',sets:'4',reps:'20',weight:''},
+    {name:'Glute Bridge',meta:'Glute activation · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Step-Up',meta:'Single leg · 3 sets · 12 reps each',sets:'3',reps:'12',weight:''},
+    {name:'Wall Sit',meta:'Isometric quad · 3 sets · 45 sec',sets:'3',reps:'45',weight:''},
+  ],
+  'Core · Abs':[
+    {name:'Plank',meta:'Core isometric · 3 sets · 45–60 sec',sets:'3',reps:'45',weight:''},
+    {name:'Side Plank',meta:'Obliques · 3 sets · 30 sec each',sets:'3',reps:'30',weight:''},
+    {name:'Dead Bug',meta:'Anti-rotation core · 3 sets · 10 reps each side',sets:'3',reps:'10',weight:''},
+    {name:'Hollow Body Hold',meta:'Core tension · 3 sets · 30 sec',sets:'3',reps:'30',weight:''},
+    {name:'Ab Wheel Rollout',meta:'Full core · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+    {name:'Hanging Leg Raise',meta:'Lower abs · 3 sets · 12 reps',sets:'3',reps:'12',weight:''},
+    {name:'Cable Crunch',meta:'Loaded abs · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Russian Twist',meta:'Obliques · 3 sets · 20 reps',sets:'3',reps:'20',weight:''},
+    {name:'Bicycle Crunch',meta:'Abs + obliques · 3 sets · 20 reps each side',sets:'3',reps:'20',weight:''},
+    {name:'V-Up',meta:'Full abs · 3 sets · 15 reps',sets:'3',reps:'15',weight:''},
+    {name:'Pallof Press',meta:'Anti-rotation · 3 sets · 12 reps each',sets:'3',reps:'12',weight:''},
+    {name:'Dragon Flag',meta:'Advanced core · 3 sets · 6–8 reps',sets:'3',reps:'6',weight:''},
+    {name:'Landmine Rotation',meta:'Rotational power · 3 sets · 10 reps each',sets:'3',reps:'10',weight:''},
+    {name:'Farmer Carry',meta:'Core + grip · 3 sets · 40 yards',sets:'3',reps:'40',weight:''},
+    {name:'L-Sit Hold',meta:'Core compression · 3 sets · 15 sec',sets:'3',reps:'15',weight:''},
+  ],
+  'Full Body':[
+    {name:'Burpee',meta:'Full body conditioning · 4 sets · 10 reps',sets:'4',reps:'10',weight:''},
+    {name:'Clean and Press',meta:'Power + strength · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Thruster',meta:'Squat to press · 3 sets · 8 reps',sets:'3',reps:'8',weight:''},
+    {name:'Kettlebell Swing',meta:'Hip power + conditioning · 4 sets · 15 reps',sets:'4',reps:'15',weight:''},
+    {name:'Turkish Get-Up',meta:'Stability + strength · 3 sets · 5 reps each',sets:'3',reps:'5',weight:''},
+    {name:'Man Maker',meta:'Full body complex · 3 sets · 8 reps',sets:'3',reps:'8',weight:''},
+    {name:'Renegade Row',meta:'Core + back · 3 sets · 8 reps each arm',sets:'3',reps:'8',weight:''},
+    {name:'Power Clean',meta:'Athletic power · 4 sets · 3 reps',sets:'4',reps:'3',weight:''},
+    {name:'Squat to Press',meta:'Lower + upper body · 3 sets · 10 reps',sets:'3',reps:'10',weight:''},
+    {name:'Bear Crawl',meta:'Coordination + core · 3 sets · 30 sec',sets:'3',reps:'30',weight:''},
+    {name:'Dumbbell Complex',meta:'Full circuit · 4 rounds · 8 each',sets:'4',reps:'8',weight:''},
+    {name:'Box Step-Up to Press',meta:'Legs + shoulders · 3 sets · 10 reps each',sets:'3',reps:'10',weight:''},
+  ],
+  'Cardio · Conditioning':[
+    {name:'Sprint Intervals',meta:'10×40 yard sprints · rest 60 sec each',sets:'10',reps:'40',weight:''},
+    {name:'Box Jump',meta:'Explosive plyometric · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Broad Jump',meta:'Horizontal power · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Depth Jump',meta:'Reactive power · 4 sets · 5 reps',sets:'4',reps:'5',weight:''},
+    {name:'Jump Rope',meta:'Conditioning · 4 sets · 60 sec',sets:'4',reps:'60',weight:''},
+    {name:'Sled Push',meta:'Power conditioning · 6 sets · 20 yards',sets:'6',reps:'20',weight:''},
+    {name:'Battle Ropes',meta:'Upper body conditioning · 4 sets · 30 sec',sets:'4',reps:'30',weight:''},
+    {name:'Hill Sprint',meta:'Speed + power · 8 sets · 60 yards',sets:'8',reps:'60',weight:''},
+    {name:'Treadmill Intervals',meta:'10 min · 30 sec hard / 90 sec easy',sets:'5',reps:'30',weight:''},
+    {name:'Assault Bike Tabata',meta:'8 rounds · 20 sec on / 10 sec off',sets:'8',reps:'20',weight:''},
+    {name:'Stair Sprint',meta:'6 sets · up and back',sets:'6',reps:'1',weight:''},
+    {name:'Medicine Ball Slam',meta:'Power + conditioning · 4 sets · 10 reps',sets:'4',reps:'10',weight:''},
+    {name:'Lateral Bound',meta:'Lateral power · 4 sets · 6 each side',sets:'4',reps:'6',weight:''},
+    {name:'Resisted Sprint',meta:'Band-resisted acceleration · 6×20 yards',sets:'6',reps:'20',weight:''},
+    {name:'Pro Agility (5-10-5)',meta:'Agility · 6 reps',sets:'6',reps:'1',weight:''},
+  ]
+};
+
+let activePCat=Object.keys(PRESETS)[0];
+
+function openPresetLib(){
+  const modal=document.getElementById('preset-modal');
+  modal.classList.add('open');
+  renderPresetCats();
+  renderPresetList();
+}
+
+function renderPresetCats(){
+  const cats=document.getElementById('preset-cats');
+  cats.innerHTML=Object.keys(PRESETS).map(cat=>
+    `<button class="pcb ${cat===activePCat?'active':''}" onclick="selectPCat('${cat}',this)">${cat}</button>`
+  ).join('');
+}
+
+function selectPCat(cat,btn){
+  activePCat=cat;
+  document.querySelectorAll('.pcb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPresetList();
+}
+
+function renderPresetList(){
+  const list=document.getElementById('preset-list');
+  const items=PRESETS[activePCat]||[];
+  list.innerHTML=items.map((ex,i)=>`
+    <div class="pi2" onclick="addPresetEx(${JSON.stringify(ex).replace(/"/g,'&quot;')})">
+      <div class="pi2-info">
+        <div class="pi2-name">${esc(ex.name)}</div>
+        <div class="pi2-meta">${esc(ex.meta)}</div>
+      </div>
+      <div class="pi2-add">+</div>
+    </div>`).join('');
+}
+
+function addPresetEx(ex){
+  addEx(ex);
+  document.getElementById('preset-modal').classList.remove('open');
+  toast('Added: '+ex.name);
+}
+
+// ── DIET ──────────────────────────────────────────────────────────
+function dietTab(name, btn){
+  ['targets','foods','timing','rules','water'].forEach(t=>{
+    const el=document.getElementById('diet-'+t);
+    if(el) el.style.display=t===name?'block':'none';
+  });
+  document.querySelectorAll('.dt-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+function initWater(){
+  const today=new Date().toDateString();
+  const stored=JSON.parse(localStorage.getItem('water')||'{}');
+  if(stored.date!==today){localStorage.setItem('water',JSON.stringify({date:today,cups:0}));}
+  renderWater();
+}
+
+function renderWater(){
+  const stored=JSON.parse(localStorage.getItem('water')||'{"cups":0}');
+  const cups=stored.cups||0;
+  const total=10;
+  document.getElementById('water-count').textContent=cups+' / '+total+' cups';
+  document.getElementById('water-fill').style.width=Math.min(100,(cups/total)*100)+'%';
+  const container=document.getElementById('water-cups');
+  if(!container) return;
+  container.innerHTML='';
+  for(let i=0;i<total;i++){
+    const btn=document.createElement('button');
+    btn.className='cup-btn'+(i<cups?' filled':'');
+    btn.textContent='💧';
+    btn.onclick=()=>logCup(i,cups);
+    container.appendChild(btn);
+  }
+}
+
+function logCup(i, current){
+  const today=new Date().toDateString();
+  const newCups=i<current?i:Math.min(10,i+1);
+  localStorage.setItem('water',JSON.stringify({date:today,cups:newCups}));
+  renderWater();
+  if(newCups>=10) toast('Hydration goal hit! 💧');
+}
+
+
+// ── ONBOARDING ────────────────────────────────────────────────────
+function getProfile(){try{return JSON.parse(localStorage.getItem('prof')||'{}')}catch{return{}}}
+function saveProfileData(p){localStorage.setItem('prof',JSON.stringify(p))}
+
+function finishOnboard(){
+  const name=document.getElementById('ob-name').value.trim();
+  const weight=document.getElementById('ob-weight').value.trim();
+  const goal=document.getElementById('ob-goal').value.trim();
+  const p=getProfile();
+  if(name) p.name=name;
+  if(weight) p.weight=weight;
+  if(goal) p.goal=goal;
+  p.onboarded=true;
+  saveProfileData(p);
+  document.getElementById('ob-overlay').style.display='none';
+  rHome();
+  toast('Welcome, '+(name||'Athlete')+'! 🔥');
+}
+function skipOnboard(){
+  const p=getProfile();p.onboarded=true;saveProfileData(p);
+  document.getElementById('ob-overlay').style.display='none';
+  rHome();
+}
+function checkOnboard(){
+  const p=getProfile();
+  if(p.onboarded){document.getElementById('ob-overlay').style.display='none';}
+}
+
+// ── PROFILE SCREEN ────────────────────────────────────────────────
+function rProfile(){
+  const p=getProfile();
+  const log=gl();
+  // avatar initials
+  const name=p.name||'Athlete';
+  const initials=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('prof-avatar').textContent=initials||'A';
+  document.getElementById('prof-name-display').textContent=name;
+  document.getElementById('prof-goal-display').textContent=p.goal||'Summer 2026 · Track Prep';
+  // stats
+  const grid=document.getElementById('prof-stats');
+  const total=log.length;
+  const weeks=Math.max(0,Math.floor(total/3));
+  const pushCount=log.filter(e=>e.type==='push').length;
+  grid.innerHTML=`
+    <div class="prof-stat"><div class="prof-stat-val" style="color:var(--accent)">${total}</div><div class="prof-stat-lbl">Sessions</div></div>
+    <div class="prof-stat"><div class="prof-stat-val" style="color:var(--gold)">${weeks}</div><div class="prof-stat-lbl">Wks Done</div></div>
+    <div class="prof-stat"><div class="prof-stat-val" style="color:var(--green)">${pushCount}</div><div class="prof-stat-lbl">Push Days</div></div>
+  `;
+  // fill fields
+  document.getElementById('prof-name').value=p.name||'';
+  document.getElementById('prof-weight').value=p.weight||'';
+  document.getElementById('prof-height').value=p.height||'';
+  document.getElementById('prof-goal').value=p.goal||'';
+  document.getElementById('prof-event').value=p.event||'';
+  document.getElementById('prof-start').value=p.start||'';
+}
+function saveProfile(){
+  const p=getProfile();
+  p.name=document.getElementById('prof-name').value.trim()||p.name;
+  p.weight=document.getElementById('prof-weight').value.trim();
+  p.height=document.getElementById('prof-height').value.trim();
+  p.goal=document.getElementById('prof-goal').value.trim();
+  p.event=document.getElementById('prof-event').value.trim();
+  p.start=document.getElementById('prof-start').value;
+  saveProfileData(p);
+  rProfile();
+  toast('Profile saved! ✓');
+}
+function resetProfile(){
+  if(!confirm('Reset your profile info? Session data is not affected.'))return;
+  localStorage.removeItem('prof');
+  rProfile();
+  toast('Profile reset');
+}
+
+checkOnboard();
+rHome();
+// init water when page loads
+setTimeout(initWater, 100);
+</script>
+</body>
+</html>
